@@ -4,12 +4,15 @@ import AddTodo from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
 import Header from "../containers/Header";
 
+
 const App = () => (
   <div>
-    <Header/>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
+    <Header path="header"/>
+    <div className="content">
+      <AddTodo/>
+      <VisibleTodoList/>
+    </div>
+    <Footer/>
   </div>
 )
 

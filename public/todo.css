@@ -2,8 +2,27 @@
   text-decoration: line-through;
 }
 
-.headerBar {
+.header_bar {
   width: 100%;
   height:50px;
   background-color: cornflowerblue;
+}
+
+
+.app_title {
+  font-size: x-large;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top:10px;
+}
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+header {
+  position: fixed;
 }

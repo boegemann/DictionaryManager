@@ -1,17 +1,42 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addTodo} from '../actions'
+import Label from '../components/Label'
 
+const deepFind = (obj, path) => {
+  var paths = path.split('.')
+    , current = obj
+    , i;
 
-let Header = ({dispatch}) => {
-
-  return <div className="headerBar">
-    <h3 onClick={() => {
-      dispatch(addTodo("Dummy"))
-    }}>TO DO</h3>
-  </div>
+  for (i = 0; i < paths.length; ++i) {
+    if (current[paths[i]] === undefined) {
+      return undefined;
+    } else {
+      current = current[paths[i]];
+    }
+  }
+  return current;
 }
 
-Header = connect()(Header)
 
-export default Header
+let HeaderComponent = ({content}) => (
+  <div className="header_bar">
+    <Label className={content.className} text={content.text}></Label>
+  </div>
+);
+
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps)
+  console.log(deepFind(state, ownProps.path));
+
+
+  return {content: Object.assign({}, deepFind(state, ownProps.path).content)}
+};
+
+
+let Header = connect(
+  mapStateToProps
+)(HeaderComponent);
+
+
+export default Header;
