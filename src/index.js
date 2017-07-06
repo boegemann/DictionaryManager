@@ -1,28 +1,25 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {createStore} from 'redux'
-import {Provider} from 'react-redux'
-import App from './components/App'
 import reducer from './reducers'
+import fetch from 'isomorphic-fetch'; // so I can use fetch()
+import Root from './components/Root'
 
 
-
-
-
-
-const initialState = {
-  header: {
-    content: {
-      text:"WCG",className:"app_title"
+fetch('https://dictionayryservices.herokuapp.com/APP')
+  .then(function (response) {
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
     }
-  }
-};
-const store = createStore(reducer, initialState);
+    return response.json();
+  })
+  .then(function (initialState) {
+    document.title = initialState.app.title;
+    let store = createStore(reducer, initialState.app);
+    render(
+      <Root store={store} />,
+      document.getElementById('root')
+    );
+  });
 
 
-render(
-  <Provider store={store}>
-    <App/>
-  </Provider>,
-  document.getElementById('root')
-);

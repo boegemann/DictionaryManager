@@ -20,7 +20,7 @@ const deepFind = (obj, path) => {
 
 let HeaderComponent = ({content}) => (
   <div className="header_bar">
-    <Label className={content.className} text={content.text}></Label>
+    <Label className={content.className} text={content.title}></Label>
   </div>
 );
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
   console.log(deepFind(state, ownProps.path));
 
 
-  return {content: Object.assign({}, deepFind(state, ownProps.path).content)}
+  return {content:Object.assign({}, deepFind(state, ownProps.path))}
 };
 
 
