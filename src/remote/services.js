@@ -1,5 +1,5 @@
-const url='https://dictionayryservices.herokuapp.com';
-// const url = 'http://localhost:3001';
+// const url='https://dictionayryservices.herokuapp.com';
+const url = 'http://localhost:3001';
 const appService = "/APP";
 
 export const getNewState = (success, error) => {
@@ -26,4 +26,33 @@ export const getNewState = (success, error) => {
       error(err)
     }
   })
+}
+
+export const login = (creds, success, failure) => {
+
+  let config = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `username=${creds.username}&password=${creds.password}`
+  }
+
+
+  // We dispatch requestLogin to kickoff the call to the API
+  fetch(url + '/sessions/create', config)
+    .then(response =>
+      response.json().then(newState => ({newState, response}))
+    ).then(({newState, response}) => {
+    if (!response.ok) {
+      // If there was a problem, we want to
+      // dispatch the error condition
+      failure(newState.message);
+      return Promise.reject(newState)
+    } else {
+      // If login was successful, set the token in local storage
+      localStorage.setItem('access_token', newState.auth.accessToken);
+      // Dispatch the success action
+      success(newState)
+    }
+  }).catch(err => console.log("Error: ", err))
+
 }
