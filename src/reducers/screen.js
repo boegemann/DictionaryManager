@@ -1,5 +1,14 @@
+import {
+  LOGIN_SUCCESS
+} from '../actions/authentication'
+
 const screen = (state = {}, action) => {
-  return state;
+  switch (action.type){
+    case LOGIN_SUCCESS:
+      return action.newState.app.screens
+    default:
+      return state
+  }
 }
 
 

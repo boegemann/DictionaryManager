@@ -20,12 +20,10 @@ function requestLogin(creds) {
   }
 }
 
-function receiveLogin(user) {
+function receiveLogin(newState) {
   return {
     type: LOGIN_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    id_token: user.id_token
+    newState: newState
   }
 }
 
@@ -53,23 +51,22 @@ export function loginUser(creds) {
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-
     return fetch('http://localhost:3001/sessions/create', config)
       .then(response =>
-        response.json().then(user => ({ user, response }))
-      ).then(({ user, response }) =>  {
+        response.json().then(newState => ({ newState, response }))
+      ).then(({ newState, response }) =>  {
         if (!response.ok) {
           // If there was a problem, we want to
           // dispatch the error condition
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
+          dispatch(loginError(newState.message))
+          return Promise.reject(newState)
         } else {
           // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.id_token)
-          localStorage.setItem('access_token', user.access_token)
-          localStorage.setItem('user_name', user.username)
+          // localStorage.setItem('id_token', user.id_token)
+          // localStorage.setItem('access_token', user.access_token)
+          // localStorage.setItem('user_name', user.username)
           // Dispatch the success action
-          dispatch(receiveLogin(user))
+          dispatch(receiveLogin(newState))
         }
       }).catch(err => console.log("Error: ", err))
   }

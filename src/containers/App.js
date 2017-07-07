@@ -5,11 +5,8 @@ import AppComponent from '../components/App'
 import {loginUser} from '../actions/authentication'
 
 const mapStateToProps = (state, ownProps) => {
-  let x =  Object.assign({}, state.auth);
-  console.log (state);
-  console.log ("->" )
-  console.log (x)
-  return x
+  document.title = state.app.title;
+  return Object.assign({}, state.auth);
 };
 
 const mapDispatchToProps = (dispatch) => {
