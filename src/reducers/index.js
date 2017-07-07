@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import header from './header'
+import app from './app'
+import auth from './authentication'
 
 const todoApp = combineReducers({
-  header
+  app,
+  auth
 })
 
 export default todoApp

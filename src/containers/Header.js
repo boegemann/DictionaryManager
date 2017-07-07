@@ -1,6 +1,5 @@
-import React from 'react'
 import {connect} from 'react-redux'
-import Label from '../components/Label'
+import HeaderBar from '../components/HeaderBar'
 
 const deepFind = (obj, path) => {
   var paths = path.split('.')
@@ -18,25 +17,14 @@ const deepFind = (obj, path) => {
 }
 
 
-let HeaderComponent = ({content}) => (
-  <div className="header_bar">
-    <Label className={content.className} text={content.title}></Label>
-  </div>
-);
-
-
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps)
-  console.log(deepFind(state, ownProps.path));
-
-
-  return {content:Object.assign({}, deepFind(state, ownProps.path))}
+  return Object.assign({titleClass:ownProps.titleClass}, deepFind(state, ownProps.path))
 };
 
 
 let Header = connect(
   mapStateToProps
-)(HeaderComponent);
+)(HeaderBar);
 
 
 export default Header;
