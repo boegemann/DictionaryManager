@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'; // so I can use fetch()
 
+const url = 'https://dictionayryservices.herokuapp.com';
+// const url = 'http://localhost:3001';
 
 // There are three possible states for our login
 // process and we need actions for each of them
@@ -37,24 +39,23 @@ function loginError(message) {
 }
 
 
-
 // Calls the API to get a token and
 // dispatches actions along the way
 export function loginUser(creds) {
 
   let config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: `username=${creds.username}&password=${creds.password}`
   }
 
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-    return fetch('http://localhost:3001/sessions/create', config)
+    return fetch(url + '/sessions/create', config)
       .then(response =>
-        response.json().then(newState => ({ newState, response }))
-      ).then(({ newState, response }) =>  {
+        response.json().then(newState => ({newState, response}))
+      ).then(({newState, response}) => {
         if (!response.ok) {
           // If there was a problem, we want to
           // dispatch the error condition

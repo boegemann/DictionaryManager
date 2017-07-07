@@ -1,5 +1,5 @@
 const url='https://dictionayryservices.herokuapp.com';
-//const url = 'http://localhost:3001';
+// const url = 'http://localhost:3001';
 const appService = "/APP";
 
 export const getNewState = (success, error) => {
@@ -15,9 +15,10 @@ export const getNewState = (success, error) => {
       access_token: access_token
     })
   }).then(function (response) {
+    console.log(response)
     if (response.status >= 400) {
       if (typeof (error) === 'function') {
-        error(new Error("Bad response from server: " + response.status))
+        error(new Error("Bad response from server"))
       }
     } else response.json().then((json) => success(json));
   }).catch((err) => {
