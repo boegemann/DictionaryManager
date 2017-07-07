@@ -12,15 +12,9 @@ function auth(state = {
         isFetching: true,
         isAuthenticated: false,
         user: action.creds
-      })
+      });
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-
-        isFetching: false,
-        isAuthenticated: true,
-        errorMessage: ''
-
-      })
+      return action.newState.auth;
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
 
@@ -28,14 +22,14 @@ function auth(state = {
         isAuthenticated: false,
         errorMessage: action.message
 
-      })
+      });
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
 
         isFetching: true,
         isAuthenticated: false
 
-      })
+      });
     default:
       return state
   }

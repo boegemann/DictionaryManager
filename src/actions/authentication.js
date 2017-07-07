@@ -62,9 +62,7 @@ export function loginUser(creds) {
           return Promise.reject(newState)
         } else {
           // If login was successful, set the token in local storage
-          // localStorage.setItem('id_token', user.id_token)
-          // localStorage.setItem('access_token', user.access_token)
-          // localStorage.setItem('user_name', user.username)
+          localStorage.setItem('access_token', newState.auth.accessToken);
           // Dispatch the success action
           dispatch(receiveLogin(newState))
         }
