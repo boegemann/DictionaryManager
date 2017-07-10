@@ -10,7 +10,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
-function requestLogin(creds) {
+const requestLogin = (creds) => {
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -19,14 +19,14 @@ function requestLogin(creds) {
   }
 }
 
-function receiveLogin(newState) {
+const receiveLogin = (newState) => {
   return {
     type: LOGIN_SUCCESS,
     newState: newState
   }
 }
 
-function loginError(message) {
+const loginError = (message) => {
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
