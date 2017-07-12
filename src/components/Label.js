@@ -9,17 +9,17 @@ const Label = ({text, onClick, className}) => {
   if (typeof onClick === 'function') {
     return (
       // eslint-disable-next-line
-      <a href="#"
+      <label
          onClick={e => {
            e.preventDefault()
            onClick()
          }}
       >
         {text}
-      </a>
+      </label>
     )
   } else return (
-    <span className={className}>{text}</span>
+    <label className={className}>{text}</label>
   )
 
 }

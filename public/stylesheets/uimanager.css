@@ -26,3 +26,12 @@
 header {
   position: fixed;
 }
+
+.row {
+  line-height: 150%;
+}
+
+.row label {
+  display: inline-block;
+  width: 80px;
+}

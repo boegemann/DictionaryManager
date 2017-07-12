@@ -1,0 +1,28 @@
+{
+  "_id": {
+    "$oid": "5964b408734d1d77802c84ac"
+  },
+  "name": "DictionaryHome",
+  "definition": [
+    [
+      {
+        "label": {
+          "text": "Login"
+        }
+      }
+    ],
+    [
+      {
+        "label": {
+          "text": "User id:"
+        }
+      },
+      {
+        "input": {
+          "ref": "username",
+          "placeholder":"User name"
+        }
+      }
+    ]
+  ]
+}
