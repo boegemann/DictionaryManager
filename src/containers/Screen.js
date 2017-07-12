@@ -1,17 +1,24 @@
-import {connect} from 'react-redux'
-import Screen from '../components/Screen'
+import {connect} from 'react-redux';
+import Screen from '../components/Screen';
+import {fetchScreenData} from '../actions/screen'
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
-  console.log(ownProps);
-  console.log(state.app.screens[ownProps.match.params.id]);
-  return {text: state.app.screens[ownProps.match.params.screen].text}
+  return {screenData: state.app.screen, appname:state.app.name, screenId:ownProps.match.params.screen}
 };
 
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchScreenData: (appname, screen) => {
+      dispatch(fetchScreenData(appname, screen));
+    }
+  }
+};
+
 let ScreenComponent = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Screen);
 
 

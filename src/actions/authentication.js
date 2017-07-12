@@ -42,6 +42,8 @@ export function loginUser(creds) {
   return dispatch => {
     dispatch(requestLogin(creds))
     login(creds, function (newState) {
+      console.log(1)
+      console.log(newState)
       dispatch(receiveLogin(newState));
     }, function (errMessage) {
       dispatch(loginError(errMessage))

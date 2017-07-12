@@ -1,6 +1,36 @@
-const url='https://dictionayryservices.herokuapp.com';
-// const url = 'http://localhost:3001';
+// const url='https://dictionayryservices.herokuapp.com';
+
+const url = 'http://localhost:3001';
 const appService = "/APP";
+const screenService = "/Screen";
+
+export const getScreenData = function (appName, screenKey, success, error){
+  //let access_token = localStorage.getItem("access_token");
+  let access_token = localStorage.getItem("access_token");
+  fetch(url + screenService, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      access_token: access_token,
+      screenKey:screenKey,
+      appName:appName
+    })
+  }).then(function (response) {
+    console.log(response)
+    if (response.status >= 400) {
+      if (typeof (error) === 'function') {
+        error(new Error("Bad response from server"))
+      }
+    } else response.json().then((json) => success(json));
+  }).catch((err) => {
+    if (typeof (error) === 'function') {
+      error(err)
+    }
+  })
+
+}
 
 export const getNewState = (success, error) => {
 
@@ -27,6 +57,9 @@ export const getNewState = (success, error) => {
     }
   })
 }
+
+
+
 
 export const login = (creds, success, failure) => {
 

@@ -1,12 +1,15 @@
-import { combineReducers } from 'redux'
-import header from './header'
-import screens from './screen'
-import title from './title'
+import {combineReducers} from 'redux';
+import header from './header';
+import screen from './screen';
+import title from './title';
+import name from './appName'
+
 
 const app = combineReducers({
   header,
-  screens,
-  title
+  screen,
+  title,
+  name
 })
 
 export default app

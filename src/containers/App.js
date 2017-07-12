@@ -5,8 +5,6 @@ import AppComponent from '../components/App'
 import {loginUser} from '../actions/authentication'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("...")
-  console.log(state)
   document.title = state.app.title;
   return Object.assign({}, state.auth);
 };
