@@ -4,7 +4,7 @@ import {fetchScreenData} from '../actions/screen'
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {screenData: state.app.screen, appname:state.app.name, screenId:ownProps.match.params.screen}
+  return {layoutData: state.app.screen, appname:state.app.name, screenId:ownProps.match.params.screen}
 };
 
 
