@@ -1,5 +1,5 @@
-// const url='https://dictionayryservices.herokuapp.com';
-const url = 'http://localhost:3001';
+const url='https://dictionayryservices.herokuapp.com';
+// const url = 'http://localhost:3001';
 
 const appService = "/APP";
 const screenService = "/Screen";
