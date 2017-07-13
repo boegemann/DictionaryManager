@@ -1,10 +1,10 @@
-const url='https://dictionayryservices.herokuapp.com';
-// const url = 'http://localhost:3001';
+// const url = 'https://dictionayryservices.herokuapp.com';
+const url = 'http://localhost:3001';
 
 const appService = "/APP";
 const screenService = "/Screen";
 
-export const getScreenData = function (appName, screenKey, success, error){
+export const getScreenData = function (appName, screenKey, success, error) {
   //let access_token = localStorage.getItem("access_token");
   let access_token = localStorage.getItem("access_token");
   fetch(url + screenService, {
@@ -14,8 +14,8 @@ export const getScreenData = function (appName, screenKey, success, error){
     },
     body: JSON.stringify({
       access_token: access_token,
-      screenKey:screenKey,
-      appName:appName
+      screenKey: screenKey,
+      appName: appName
     })
   }).then(function (response) {
     console.log(response)
@@ -57,8 +57,6 @@ export const getNewState = (success, error) => {
     }
   })
 }
-
-
 
 
 export const login = (creds, success, failure) => {

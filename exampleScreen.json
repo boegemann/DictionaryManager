@@ -4,25 +4,42 @@
   },
   "name": "DictionaryHome",
   "definition": [
-    [
-      {
-        "label": {
-          "text": "Login"
-        }
+    {
+      "form": {
+        "name": "LoginForm",
+        "submit": {
+         "url": "/login",
+          "caption": "Login"
+        },
+        "content": [
+          [
+            {
+              "label": {
+                "text": "Login"
+              }
+            }
+          ],
+          [
+            {
+              "field": {
+                "label": "User id:",
+                "placeholder": "User name",
+                "property": "username"
+              }
+            }
+          ],
+          [
+            {
+              "field": {
+                "label": "Password:",
+                "placeholder": "password",
+                "property": "password",
+                "type": "password"
+              }
+            }
+          ]
+        ]
       }
-    ],
-    [
-      {
-        "label": {
-          "text": "User id:"
-        }
-      },
-      {
-        "input": {
-          "ref": "username",
-          "placeholder":"User name"
-        }
-      }
-    ]
+    }
   ]
 }

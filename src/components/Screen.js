@@ -1,31 +1,23 @@
-import React from 'react'
-import Label from '../components/Label'
+import React from 'react';
+import Label from '../components/Label';
+import Form from '../containers/Form';
 
-const constructScreen = (layoutData) => {
+
+const constructScreen = (layoutData, screenId, appname) => {
   console.log(layoutData)
-  let rows = layoutData.layout.map((unit, rowIndex) => {
-    let rowKey = "r" + rowIndex;
-    var controls = unit.map((control,itemIndex) => {
-      let controlType = Object.getOwnPropertyNames(control)[0];
-      let itemKey = "r" + rowIndex + ":" + itemIndex;
-      switch (controlType) {
-        case "label":
-          return <Label key={itemKey} text={control.label.text}></Label>;
-        case "input":
-          let input= control.input;
-          return <input
-            key={itemKey}
-            type={input.type==null?'text':input.type}
-            ref={input.ref}
-            className="form-control"
-            placeholder={input.placeholder}/>
-        default:
-          return <div/>;
-      }
-    });
-    return <div key={rowKey} className="row">{controls}</div>;
+  let units = layoutData.layout.map((unit, unitIndex) => {
+    let unitType = Object.getOwnPropertyNames(unit)[0];
+    switch (unitType) {
+      case "form":
+        console.log(unit)
+        return <Form initialValues={{url: unit.form.submit.url, appname: appname, screen: screenId}} key={unit.form.name}
+                     form={unit.form.name} unitIndex={unitIndex}></Form>
+      default:
+        return <div/>;
+    }
   });
-  return <div className="screen">{rows}</div>;
+  console.log(units)
+  return <div className="screen">{units}</div>;
 };
 
 
@@ -39,11 +31,10 @@ const Screen = ({layoutData, appname, screenId, fetchScreenData}) => {
       <Label text={layoutData.text}></Label>
     </div>
   } else if (layoutData.navigate === 'finished') {
-    return constructScreen(layoutData);
+    return constructScreen(layoutData, appname, screenId);
   } else {
     return null;
   }
 };
-
 
 export default Screen;
