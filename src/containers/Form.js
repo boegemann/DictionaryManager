@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import FormComponent from '../components/Form';
+import {loginUser} from '../actions/authentication'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,6 +11,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSubmit: (data) => {
       console.log(data);
+
+      dispatch(loginUser(data))
     }
   }
 };
