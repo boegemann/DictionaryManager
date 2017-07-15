@@ -6,8 +6,6 @@ import {
   Route, Redirect, Switch
 } from 'react-router-dom'
 
-import Login from './Login'
-
 
 
 const App = ({onLoginClick, isAuthenticated, errorMessage}) => (
@@ -15,28 +13,17 @@ const App = ({onLoginClick, isAuthenticated, errorMessage}) => (
     <Header titleClass="app_title" path="app.header"/>
     <div>{errorMessage}</div>
     <div className="content">
-      {!isAuthenticated &&
-      <Login
-        errorMessage={errorMessage}
-        onLoginClick={onLoginClick}
-      />
-      }
-
-      {isAuthenticated &&
       <Router>
         <Switch>
           <Redirect exact from="/" to="/home"/>
-          <Route path="/:screen" render={(props) => (
+          <Route path="/:screen"  render={(props) => (
             <Screen {...props}/>
           )}/>
         </Switch>
-
-
       </Router>
-      }
-
     </div>
   </div>
 )
 
 export default App
+

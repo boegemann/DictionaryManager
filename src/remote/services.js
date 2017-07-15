@@ -79,9 +79,6 @@ export const login = (creds, success, failure) => {
       failure(newState.message);
       return Promise.reject(newState)
     } else {
-      // If login was successful, set the token in local storage
-      localStorage.setItem('access_token', newState.auth.accessToken);
-      // Dispatch the success action
       success(newState)
     }
   }).catch(err => console.log("Error: ", err))

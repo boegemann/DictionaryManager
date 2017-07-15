@@ -1,11 +1,9 @@
-import {
-  LOGIN_SUCCESS
-} from '../actions/authentication'
+import {SET_APP_STATE} from '../actions/screen';
 
 
 const title = (state = {}, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case SET_APP_STATE:
       if (!action.newState.error) {
         return action.newState.app.title
       } else {

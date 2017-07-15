@@ -10,7 +10,8 @@ const constructScreen = (layoutData, screenId, appname) => {
     switch (unitType) {
       case "form":
         console.log(unit)
-        return <Form initialValues={{url: unit.form.submit.url, appname: appname, screen: screenId}} key={unit.form.name}
+        return <Form initialValues={{url: unit.form.submit.url, appname: appname, screen: screenId}}
+                     key={unit.form.name}
                      form={unit.form.name} unitIndex={unitIndex}></Form>
       default:
         return <div/>;
@@ -21,20 +22,30 @@ const constructScreen = (layoutData, screenId, appname) => {
 };
 
 
-const Screen = ({layoutData, appname, screenId, fetchScreenData}) => {
+class Screen extends React.Component {
 
-  if (layoutData.navigate === 'required') {
-    fetchScreenData(appname, screenId);
-    return null;
-  } else if (layoutData.navigate === 'loading') {
-    return <div className="screen">
-      <Label text={layoutData.text}></Label>
-    </div>
-  } else if (layoutData.navigate === 'finished') {
-    return constructScreen(layoutData, appname, screenId);
-  } else {
-    return null;
+  componentDidMount(){
+    let {layoutData, appname, screenId, fetchScreenData} = this.props;
+    if (layoutData.navigate === 'required') {
+      fetchScreenData(appname, screenId);
+      return null;
+    }
   }
-};
+
+  render() {
+    let {layoutData, appname, screenId} = this.props;
+     if (layoutData.navigate === 'loading') {
+      return <div className="screen">
+        <Label text={layoutData.text}></Label>
+      </div>
+    } else if (layoutData.navigate === 'finished') {
+      return constructScreen(layoutData, appname, screenId);
+    } else {
+      return null;
+    }
+  };
+}
+
+
 
 export default Screen;

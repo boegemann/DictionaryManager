@@ -1,9 +1,8 @@
-import {LOGIN_SUCCESS} from '../actions/authentication'
-import {SCREEN_DATA_REQUEST, SCREEN_DATA_SUCCESS, SCREEN_DATA_FAILURE} from '../actions/screen'
+import {SCREEN_DATA_REQUEST, SCREEN_DATA_SUCCESS, SCREEN_DATA_FAILURE, SET_APP_STATE} from '../actions/screen'
 
 const screen = (state = {}, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case SET_APP_STATE:
       if (!action.newState.error) {
         return action.newState.app.screen;
       } else {

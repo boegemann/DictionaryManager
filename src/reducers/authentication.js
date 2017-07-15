@@ -1,6 +1,5 @@
-import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
-} from '../actions/authentication'
+import {LOGIN_REQUEST, LOGIN_FAILURE, LOGOUT_SUCCESS} from '../actions/authentication';
+import {SET_APP_STATE} from '../actions/screen';
 
 function auth(state = {
   isFetching: false,
@@ -13,7 +12,8 @@ function auth(state = {
         isAuthenticated: false,
         user: action.creds
       });
-    case LOGIN_SUCCESS:
+    case SET_APP_STATE:
+      localStorage.setItem('access_token', action.newState.auth.accessToken);
       return action.newState.auth;
     case LOGIN_FAILURE:
       return Object.assign({}, state, {

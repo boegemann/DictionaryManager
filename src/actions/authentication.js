@@ -3,7 +3,6 @@ import {login} from '../remote/services';
 // There are three possible states for our login
 // process and we need actions for each of them
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
@@ -19,12 +18,7 @@ const requestLogin = (creds) => {
   }
 }
 
-const receiveLogin = (newState) => {
-  return {
-    type: LOGIN_SUCCESS,
-    newState: newState
-  }
-}
+
 
 const loginError = (message) => {
   return {
@@ -41,10 +35,8 @@ const loginError = (message) => {
 export function loginUser(creds) {
   return dispatch => {
     dispatch(requestLogin(creds))
-    login(creds, function (newState) {
-      console.log(1)
-      console.log(newState)
-      dispatch(receiveLogin(newState));
+    login(creds, function (action) {
+      action.map(dispatch);
     }, function (errMessage) {
       dispatch(loginError(errMessage))
     });
