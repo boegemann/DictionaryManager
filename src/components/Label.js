@@ -11,23 +11,20 @@ const Label = ({text, onClick, className}) => {
       // eslint-disable-next-line
       <label
          onClick={e => {
-           e.preventDefault()
+           e.preventDefault();
            onClick()
          }}
-      >
-        {text}
-      </label>
+      >{text}</label>
     )
   } else return (
     <label className={className}>{text}</label>
   )
-
-}
+};
 
 Label.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   className:PropTypes.string
-}
+};
 
 export default Label

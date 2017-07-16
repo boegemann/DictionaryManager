@@ -9,8 +9,7 @@ const screen = (state = {}, action) => {
         return state;
       }
     case SCREEN_DATA_REQUEST:
-      let newState = {navigate: 'loading', text: "Let's wait for " + action.screenId};
-      return newState;
+      return {navigate: 'loading', text: "Let's wait for " + action.screenId};
     case SCREEN_DATA_SUCCESS:
       action.screenData.navigate='finished';
       return action.screenData;

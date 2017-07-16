@@ -1,6 +1,6 @@
 import {getScreenData} from '../remote/services'
 
-export const SET_APP_STATE = 'SET_APP_STATE'
+export const SET_APP_STATE = 'SET_APP_STATE';
 
 export const SCREEN_DATA_REQUEST = 'SCREEN_DATA_REQUEST';
 export const SCREEN_DATA_SUCCESS = 'SCREEN_DATA_SUCCESS';
@@ -20,13 +20,6 @@ const screenDataError = (error) => {
     error: error
   }
 };
-
-export const setAppState = (newState) => {
-  return {
-    type: SET_APP_STATE,
-    newState: newState
-  }
-}
 
 
 export const fetchScreenData = (appName, screenId) => {

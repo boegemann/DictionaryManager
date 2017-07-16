@@ -8,10 +8,10 @@ const Root = ({store}) => (
   <Provider store={store}>
     <App/>
   </Provider>
-)
+);
 
 Root.propTypes = {
   store: PropTypes.object.isRequired
-}
+};
 
 export default Root

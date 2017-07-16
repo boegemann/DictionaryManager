@@ -17,6 +17,6 @@ getNewState((newState) => {
   );
 }, (err) => {
   alert(err.message)
-})
+});
 
 

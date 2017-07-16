@@ -15,6 +15,3 @@ const header = (state = {}, action) => {
 
 
 export default header
-/**
- * Created by ibogemann on 11/07/2017.
- */

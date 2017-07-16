@@ -18,7 +18,6 @@ export const getScreenData = function (appName, screenKey, success, error) {
       appName: appName
     })
   }).then(function (response) {
-    console.log(response)
     if (response.status >= 400) {
       if (typeof (error) === 'function') {
         error(new Error("Bad response from server"))
@@ -29,8 +28,7 @@ export const getScreenData = function (appName, screenKey, success, error) {
       error(err)
     }
   })
-
-}
+};
 
 export const getNewState = (success, error) => {
 
@@ -45,7 +43,6 @@ export const getNewState = (success, error) => {
       access_token: access_token
     })
   }).then(function (response) {
-    console.log(response)
     if (response.status >= 400) {
       if (typeof (error) === 'function') {
         error(new Error("Bad response from server"))
@@ -56,7 +53,7 @@ export const getNewState = (success, error) => {
       error(err)
     }
   })
-}
+};
 
 
 export const login = (creds, success, failure) => {
@@ -65,7 +62,7 @@ export const login = (creds, success, failure) => {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: `username=${creds.username}&password=${creds.password}`
-  }
+  };
 
 
   // We dispatch requestLogin to kickoff the call to the API
@@ -83,4 +80,4 @@ export const login = (creds, success, failure) => {
     }
   }).catch(err => console.log("Error: ", err))
 
-}
+};

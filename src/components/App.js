@@ -8,7 +8,7 @@ import {
 
 
 
-const App = ({onLoginClick, isAuthenticated, errorMessage}) => (
+const App = ({isAuthenticated, errorMessage}) => (
   <div>
     <Header titleClass="app_title" path="app.header"/>
     <div>{errorMessage}</div>
@@ -23,7 +23,7 @@ const App = ({onLoginClick, isAuthenticated, errorMessage}) => (
       </Router>
     </div>
   </div>
-)
+);
 
 export default App
 

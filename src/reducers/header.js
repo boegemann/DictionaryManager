@@ -14,7 +14,7 @@ const header = (state = {}, action) => {
     default:
       return state
   }
-}
+};
 
 
 export default header

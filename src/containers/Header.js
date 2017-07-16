@@ -2,11 +2,10 @@ import {connect} from 'react-redux'
 import HeaderBar from '../components/HeaderBar'
 
 const deepFind = (obj, path) => {
-  var paths = path.split('.')
-    , current = obj
-    , i;
+  let paths = path.split('.')
+    , current = obj;
 
-  for (i = 0; i < paths.length; ++i) {
+  for (let i = 0; i < paths.length; ++i) {
     if (current[paths[i]] === undefined) {
       return undefined;
     } else {
@@ -14,7 +13,7 @@ const deepFind = (obj, path) => {
     }
   }
   return current;
-}
+};
 
 
 const mapStateToProps = (state, ownProps) => {

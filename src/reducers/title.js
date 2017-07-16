@@ -12,7 +12,7 @@ const title = (state = {}, action) => {
     default:
       return state
   }
-}
+};
 
 
 export default title

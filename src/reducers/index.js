@@ -10,6 +10,6 @@ const todoApp = combineReducers({
   auth,
   error,
   form: formReducer
-})
+});
 
 export default todoApp

@@ -10,6 +10,6 @@ const app = combineReducers({
   screen,
   title,
   name
-})
+});
 
 export default app
