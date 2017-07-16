@@ -2,6 +2,7 @@ import React from 'react';
 import Label from '../components/Label';
 import Form from '../containers/Form';
 
+import {withRouter} from "react-router-dom";
 
 const constructScreen = (layoutData, screenId, appname) => {
   console.log(layoutData)
@@ -24,17 +25,35 @@ const constructScreen = (layoutData, screenId, appname) => {
 
 class Screen extends React.Component {
 
-  componentDidMount(){
-    let {layoutData, appname, screenId, fetchScreenData} = this.props;
+  componentWillReceiveProps (nextProps) {
+    let {layoutData, appname, screenId, fetchScreenData, history} = nextProps;
     if (layoutData.navigate === 'required') {
-      fetchScreenData(appname, screenId);
+      if (layoutData.nextUrl) {
+        var url = layoutData.nextUrl
+        delete layoutData.nextUrl;
+        history.push(url);
+      } else {
+        fetchScreenData(appname, screenId);
+      }
+      return null;
+    }
+  }
+
+  componentDidMount() {
+    let {layoutData, appname, screenId, fetchScreenData, history} = this.props;
+    if (layoutData.navigate === 'required') {
+      if (layoutData.url) {
+        history.push(layoutData.url);
+      } else {
+        fetchScreenData(appname, screenId);
+      }
       return null;
     }
   }
 
   render() {
     let {layoutData, appname, screenId} = this.props;
-     if (layoutData.navigate === 'loading') {
+    if (layoutData.navigate === 'loading') {
       return <div className="screen">
         <Label text={layoutData.text}></Label>
       </div>
@@ -47,5 +66,5 @@ class Screen extends React.Component {
 }
 
 
+export default withRouter(Screen);
 
-export default Screen;
