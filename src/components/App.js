@@ -2,7 +2,7 @@ import React from 'react'
 import Header from "../containers/Header";
 import Screen from "../containers/Screen";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route, Redirect, Switch
 } from 'react-router-dom'
 
@@ -13,14 +13,14 @@ const App = ({isAuthenticated, errorMessage}) => (
     <Header titleClass="app_title" path="app.header"/>
     <div>{errorMessage}</div>
     <div className="content">
-      <Router>
+      <BrowserRouter>
         <Switch>
           <Redirect exact from="/" to="/home"/>
-          <Route path="/:screen"  render={(props) => (
+          <Route path="/:appname/:screen" render={(props) => (
             <Screen {...props}/>
           )}/>
         </Switch>
-      </Router>
+      </BrowserRouter>
     </div>
   </div>
 );

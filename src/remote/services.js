@@ -34,13 +34,15 @@ export const getNewState = (success, error) => {
 
 // we start off by seeing whether we have a JWT token stored
   let access_token = localStorage.getItem("access_token");
+
   fetch(url + appService, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      access_token: access_token
+      access_token: access_token,
+      path:window.location.pathname
     })
   }).then(function (response) {
     if (response.status >= 400) {
@@ -54,7 +56,6 @@ export const getNewState = (success, error) => {
     }
   })
 };
-
 
 export const login = (creds, success, failure) => {
 

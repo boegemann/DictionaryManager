@@ -8,6 +8,8 @@ import {getNewState} from './remote/services'
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
+
+
 // Now call the server to get the inital application state
 getNewState((newState) => {
   let store = createStoreWithMiddleware(reducer, newState);
