@@ -1,6 +1,7 @@
 // const url = 'https://dictionayryservices.herokuapp.com';
 const url = 'http://localhost:3001';
 
+const urlActions = "/ACTIONS";
 const appService = "/APP";
 const screenService = "/Screen";
 
@@ -16,6 +17,35 @@ export const getScreenData = function (appName, screenKey, success, error) {
       access_token: access_token,
       screenKey: screenKey,
       appName: appName
+    })
+  }).then(function (response) {
+    if (response.status >= 400) {
+      if (typeof (error) === 'function') {
+        error(new Error("Bad response from server"))
+      }
+    } else response.json().then((json) => success(json));
+  }).catch((err) => {
+    if (typeof (error) === 'function') {
+      error(err)
+    }
+  })
+};
+
+export const getActionsForUrlChange = (oldPath, newPath, success, error) => {
+
+// we start off by seeing whether we have a JWT token stored
+  let access_token = localStorage.getItem("access_token");
+  console.log(">>" + url + urlActions);
+
+  fetch(url + urlActions, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      access_token: access_token,
+      oldPath:oldPath,
+      newPath:newPath
     })
   }).then(function (response) {
     if (response.status >= 400) {

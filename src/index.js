@@ -1,24 +1,49 @@
-import React from 'react'
-import {render} from 'react-dom'
-import {createStore, applyMiddleware} from 'redux'
-import reducer from './reducers'
-import Root from './components/Root'
-import thunkMiddleware from 'redux-thunk'
-import {getNewState} from './remote/services'
+import React from 'react';
+import {render} from 'react-dom';
+import {createStore, applyMiddleware} from 'redux';
+import reducer from './reducers';
+import thunkMiddleware from 'redux-thunk';
+import {getActionsForUrlChange} from './remote/services';
+import Application from './containers/ApplicationContainer';
+import {Provider} from 'react-redux';
+import {
+  BrowserRouter,
+  Route
+} from 'react-router-dom'
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
+let store = createStoreWithMiddleware(reducer, {
+    application: {
+      title: "Loading ...",
+      navigation: {
+        currentUrl: window.location.pathname,
+        targetUrl: ""
+      }
+    }
+  }
+);
 
+render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <Route path="/:appname?/:screen?/:key?" render={(props) => (
+        <Application {...props}/>
+      )}/>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
 
-// Now call the server to get the inital application state
-getNewState((newState) => {
-  let store = createStoreWithMiddleware(reducer, newState);
-  render(
-    <Root store={store}/>,
-    document.getElementById('root')
-  );
+getActionsForUrlChange("", window.location.pathname, (actions) => {
+  console.log(actions);
+  actions.forEach((a) => {
+    store.dispatch(a)
+  })
 }, (err) => {
-  alert(err.message)
+  console.error(err);
 });
+
+
 
 
