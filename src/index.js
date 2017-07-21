@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import reducer from './reducers';
 import thunkMiddleware from 'redux-thunk';
-import {getActionsForUrlChange} from './remote/services';
+import {initiateServiceCall} from './remote/services';
 import {Provider} from 'react-redux';
 import {
   BrowserRouter,
@@ -44,14 +44,7 @@ render(
   document.getElementById('root')
 );
 
-getActionsForUrlChange("", window.location.pathname, (actions) => {
-  console.log(actions);
-  actions.forEach((a) => {
-    store.dispatch(a)
-  })
-}, (err) => {
-  console.error(err);
-});
+initiateServiceCall("navigation", {oldPath: "", newPath: window.location.pathname}, store.dispatch)
 
 
 
