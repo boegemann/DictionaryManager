@@ -1,16 +1,18 @@
 import {connect} from 'react-redux';
 import FormComponent from '../components/Form';
-import {loginUser} from '../actions/authentication'
+import {callService} from '../actions/screen'
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {formDefinition: state.app.screen.layout[ownProps.unitIndex].form, unitKey:ownProps.unitKey};
+  return {formDefinition: state.screen[ownProps.unitIndex].form, unitKey:ownProps.unitKey};
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (data) => {
-      dispatch(loginUser(data))
+    onSubmit: (params) => {
+      var cleanedParams = {...params};
+      delete cleanedParams.service
+      dispatch(callService(params.service, cleanedParams))
     }
   }
 };

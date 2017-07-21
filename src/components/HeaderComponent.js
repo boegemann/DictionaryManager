@@ -1,9 +1,9 @@
 import React from 'react'
 import Label from '../components/Label'
 
-const HeaderComponent = ({titleClass,title}) => (
+const HeaderComponent = ({title}) => (
   <div className="header_bar">
-    <Label className={titleClass} text={title!=null?title:""}/>
+    <Label className='app_title' text={title != null ? title : ""}/>
   </div>
 );
 

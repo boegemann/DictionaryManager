@@ -37,7 +37,6 @@ const constructForm = (formDefinition, handleSubmit) => {
   });
   return <form className="screen" onSubmit={handleSubmit}>
     {rows}
-    <field key={formDefinition.name + ":url"} name="url" value={formDefinition.submit.url} type="hidden"/>
     <button className="form_submit" type="submit">{formDefinition.submit.caption}</button>
   </form>;
 };
