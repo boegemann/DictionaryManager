@@ -38,7 +38,8 @@ export const initiateServiceCall = (service, params, dispatch) => {
     },
     body: JSON.stringify({
       service: service,
-      token:localStorage.getItem("access_token"),
+      token: localStorage.getItem("access_token"),
+      currentPath: window.location.pathname,
       params: params
     })
   }).then(function (response) {

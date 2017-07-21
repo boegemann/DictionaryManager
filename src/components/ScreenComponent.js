@@ -6,6 +6,18 @@ import {withRouter} from "react-router-dom";
 
 
 const getInitialValues = (unit, application, data) => {
+
+  const getRootValue = (dataType) => {
+    switch (dataType) {
+      case "app":
+        return application;
+      case "data":
+        return data;
+      default:
+        return null;
+    }
+  };
+
   let values = {};
   let unitType = Object.getOwnPropertyNames(unit)[0];
   let unitDefintion = unit[unitType];
@@ -21,27 +33,20 @@ const getInitialValues = (unit, application, data) => {
         let propDescriptor = unitDefintion.data[propName];
         if (exists(propDescriptor)) {
           let descriptorPaths = propDescriptor.split(":", 2);
-          let dataType = descriptorPaths[0];
-          switch (dataType) {
-            case "app":
-              let value = application;
-              let pathElements = descriptorPaths[1].split(".");
-              pathElements.forEach((path) => {
-                if (exists(value)) {
-                  value = value[path];
-                }
-              });
-              values[propName] = value;
-              break;
-            default:
-          }
+          let value = getRootValue(descriptorPaths[0]);
+          let pathElements = descriptorPaths[1].split(".");
+          pathElements.forEach((path) => {
+            if (exists(value)) {
+              value = value[path];
+            }
+          });
+          values[propName] = value;
         }
-      }
-    )
-  }
+      });
 
-  return values;
-};
+    return values;
+  }
+}
 
 
 const constructScreen = (layoutData, screenId, appname, application, data) => {
@@ -50,14 +55,14 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
     let unitType = Object.getOwnPropertyNames(unit)[0];
     switch (unitType) {
       case "form":
-        return <Form initialValues={getInitialValues(unit, application, data)}
+        return <Form enableReinitialize="true" initialValues={getInitialValues(unit, application, data)}
                      key={unit.form.name}
                      form={unit.form.name} unitIndex={unitIndex}/>;
       default:
         return <div/>;
     }
   });
-  return <div className="screen">{units}</div>;
+  return <div className="screen"><div className="content">{units}</div></div>;
 };
 
 
@@ -65,9 +70,9 @@ class ScreenComponent extends React.Component {
 
 
   render() {
-    let {layoutData, appname, screenId, application} = this.props;
+    let {layoutData, appname, screenId, application, data} = this.props;
     if (layoutData.length) {
-      return constructScreen(layoutData, appname, screenId, application);
+      return constructScreen(layoutData, appname, screenId, application, data);
     } else {
       return <div/>
     }

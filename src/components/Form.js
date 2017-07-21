@@ -1,12 +1,28 @@
 import React from 'react';
 import Label from '../components/Label';
 import {Field, reduxForm} from 'redux-form';
+import {exists} from '../util';
+
 
 const renderField = ({input, label, type, placeholder, meta: {touched, error}}) => {
+
+  const getInput = () => {
+    switch (type) {
+      case "label" :
+        return <Label className={type} text={input.value}/>;
+      case "message":
+      case "error":
+      case "warning":
+        return <span className={type}>{input.value}</span>
+      default:
+        return <input {...input} type={type} placeholder={placeholder}/>;
+    }
+  }
+
   return (
     <div>
-      <label>{label}</label>
-      <input {...input} type={type} placeholder={placeholder}/>
+      {exists(label) && <label className="form_label">{label}</label>}
+      {getInput()}
       {touched && error && <div className="error">{error}</div>}
     </div>
   )
@@ -20,7 +36,8 @@ const constructForm = (formDefinition, handleSubmit) => {
       let itemKey = rowKey + ":" + itemIndex;
       switch (controlType) {
         case "label":
-          return <Label key={itemKey} text={control.label.text}/>;
+        case "heading":
+          return <Label className={controlType} key={itemKey} text={control[controlType].text}/>;
         case "field":
           let field = control.field;
           return <Field key={field.property}
@@ -35,7 +52,7 @@ const constructForm = (formDefinition, handleSubmit) => {
     });
     return <div key={rowKey} className="row">{controls}</div>;
   });
-  return <form className="screen" onSubmit={handleSubmit}>
+  return <form onSubmit={handleSubmit}>
     {rows}
     <button className="form_submit" type="submit">{formDefinition.submit.caption}</button>
   </form>;

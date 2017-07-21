@@ -5,7 +5,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     layoutData: state.screen, appname: ownProps.match.params.appname,
     screenId: ownProps.match.params.screen,
-    application: {...state.application}
+    application: {...state.application},
+    data:state.data
   }
 };
 
@@ -19,3 +20,4 @@ let Screen = connect(
 )(ScreenComponent);
 
 export default Screen
+
