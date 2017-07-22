@@ -1,5 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
+
+#env file containing environment specific items
+
+
 # Logs
 logs
 *.log
@@ -196,3 +200,4 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+/src/env.js
