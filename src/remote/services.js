@@ -1,7 +1,7 @@
 import {url} from '../env';
-// const url = 'http://localhost:3001';
 
 const urlActions = "/ACTIONS";
+
 
 
 export const SERVICE_CALL_SUCCESS = 'SCREEN_DATA_SUCCESS';
