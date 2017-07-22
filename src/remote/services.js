@@ -1,4 +1,4 @@
-const url = 'https://dictionayryservices.herokuapp.com';
+import {url} from '../env';
 // const url = 'http://localhost:3001';
 
 const urlActions = "/ACTIONS";
@@ -27,6 +27,7 @@ const serviceFailure = (error) => {
     error: error
   }
 };
+
 
 export const initiateServiceCall = (service, params, dispatch) => {
   dispatch(requestService());
