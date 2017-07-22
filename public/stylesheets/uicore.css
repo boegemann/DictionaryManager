@@ -1,0 +1,46 @@
+.completed {
+  text-decoration: line-through; }
+
+.header_bar {
+  width: 100%;
+  height: 50px;
+  background-color: cornflowerblue; }
+
+.app_title {
+  font-size: x-large;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 10px; }
+
+header {
+  position: fixed; }
+
+.row {
+  line-height: 150%; }
+
+.form_label {
+  display: inline-block;
+  width: 80px; }
+
+.heading {
+  display: inline-block;
+  font-weight: bold; }
+
+.error {
+  color: orange; }
+
+.warning {
+  color: orange;
+  font-weight: bold; }
+
+.screen {
+  margin: auto;
+  margin-top: 30px;
+  text-align: center; }
+
+.content {
+  display: inline-block;
+  text-align: initial; }
+
+/*# sourceMappingURL=uicore.css.map */
