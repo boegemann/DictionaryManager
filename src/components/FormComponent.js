@@ -20,7 +20,7 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}}) 
   }
 
   return (
-    <div>
+    <div className="field">
       {exists(label) && <label className="form_label">{label}</label>}
       {getInput()}
       {touched && error && <div className="error">{error}</div>}

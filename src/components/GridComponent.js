@@ -17,4 +17,4 @@ class GridComponent extends React.Component {
   };
 }
 
-export default GridComponent
+export default GridComponent;

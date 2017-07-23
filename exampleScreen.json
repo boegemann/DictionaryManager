@@ -6,19 +6,60 @@
   "services": {
     "initial": [
       {
-        "data:dictionary.grid.columndef": "dictionary/services:columndef"
+        "service": "dictionary/grid:getInitialColumns",
+        "storage": "data:dictionary.grid.columndef"
       },
       {
-        "data:dictionary.grid.data": "dictionary/services:data"
+        "service": "dictionary/grid:getInitialData",
+        "storage": "data:dictionary.grid.data"
       }
     ]
   },
   "definition": [
     {
+      "form": {
+        "name": "LoginForm",
+        "data": {
+          "filter": "data:dictionary.grid.filter"
+        },
+        "submit": {
+          "service": "dictionaryFilter",
+          "caption": "Filter"
+        },
+        "content": [
+          [
+            {
+              "heading": {
+                "text": "Filter"
+              }
+            }
+          ],
+          [
+            {
+              "field": {
+                "label": "Section:",
+                "placeholder": "Dictioanry Section",
+                "property": "section"
+              }
+            },
+            {
+              "field": {
+                "label": "Key:",
+                "placeholder": "Key",
+                "property": "key"
+              }
+            }
+          ]
+        ]
+      }
+    },
+    {
       "grid": {
         "name": "VocabularyGrid",
-        "columnDefinition": "data:dictionary.grid.columndef",
-        "data": "data:dictionary.grid.data"
+        "data": {
+          "data": "data:dictionary.grid.data",
+          "columndef": "data:dictionary.grid.columndef"
+        }
       }
     }
   ]
