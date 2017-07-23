@@ -1,5 +1,6 @@
 import React from 'react';
-import Form from '../containers/Form';
+import Form from '../containers/FormContainer';
+import GridComponent from '../containers/GridContainer';
 import {exists} from '../util';
 
 import {withRouter} from "react-router-dom";
@@ -58,6 +59,8 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
         return <Form enableReinitialize="true" initialValues={getInitialValues(unit, application, data)}
                      key={unit.form.name}
                      form={unit.form.name} unitIndex={unitIndex}/>;
+      case "grid":
+        return <GridComponent key={unit.grid.name} unitIndex={unitIndex}/>;
       default:
         return <div/>;
     }

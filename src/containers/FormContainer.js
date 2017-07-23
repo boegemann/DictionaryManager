@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import FormComponent from '../components/Form';
+import FormComponent from '../components/FormComponent';
 import {callService} from '../actions/screen'
 
 

@@ -1,44 +1,24 @@
 {
   "_id": {
-    "$oid": "5964b408734d1d77802c84ac"
+    "$oid": "5964b420734d1d77802c84b2"
   },
-  "name": "DictionaryHome",
+  "name": "DictionaryOther",
+  "services": {
+    "initial": [
+      {
+        "data:dictionary.grid.columndef": "dictionary/services:columndef"
+      },
+      {
+        "data:dictionary.grid.data": "dictionary/services:data"
+      }
+    ]
+  },
   "definition": [
     {
-      "form": {
-        "name": "LoginForm",
-        "submit": {
-         "url": "/login",
-          "caption": "Login"
-        },
-        "content": [
-          [
-            {
-              "label": {
-                "text": "Login"
-              }
-            }
-          ],
-          [
-            {
-              "field": {
-                "label": "User id:",
-                "placeholder": "User name",
-                "property": "username"
-              }
-            }
-          ],
-          [
-            {
-              "field": {
-                "label": "Password:",
-                "placeholder": "password",
-                "property": "password",
-                "type": "password"
-              }
-            }
-          ]
-        ]
+      "grid": {
+        "name": "VocabularyGrid",
+        "columnDefinition": "data:dictionary.grid.columndef",
+        "data": "data:dictionary.grid.data"
       }
     }
   ]

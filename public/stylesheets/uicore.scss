@@ -40,6 +40,7 @@ header {
 .heading {
   display: inline-block;
   font-weight: bold;
+  font-size:1.2em;
 }
 
 .error {
@@ -60,4 +61,15 @@ header {
 .content {
   display: inline-block;
   text-align: initial;
+}
+
+button {
+  background: none;
+  border:none;
+  float: right;
+  text-decoration: underline;
+  font-weight: bold;
+  color:blue;
+  margin-top:10px;
+  cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Label from '../components/Label'
+import Label from './LabelComponent'
 
 const HeaderComponent = ({title}) => (
   <div className="header_bar">

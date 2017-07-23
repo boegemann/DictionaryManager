@@ -1,5 +1,5 @@
 import React from 'react';
-import Label from '../components/Label';
+import Label from './LabelComponent';
 import {Field, reduxForm} from 'redux-form';
 import {exists} from '../util';
 
@@ -57,7 +57,6 @@ const constructForm = (formDefinition, handleSubmit) => {
     <button className="form_submit" type="submit">{formDefinition.submit.caption}</button>
   </form>;
 };
-
 
 const FormComponent = ({formDefinition, handleSubmit}) => {
   return constructForm(formDefinition, handleSubmit);
