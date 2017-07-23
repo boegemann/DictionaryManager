@@ -56,7 +56,7 @@ button {
   cursor: pointer; }
 
 .react-grid-container {
-  margin-top: 40px; }
+  margin-top: 20px; }
 
 .row {
   clear: both; }
@@ -64,5 +64,8 @@ button {
 .field {
   display: inline-block;
   margin-right: 25px; }
+
+form {
+  display: inline-block; }
 
 /*# sourceMappingURL=uicore.css.map */
