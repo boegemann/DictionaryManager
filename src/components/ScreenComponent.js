@@ -60,13 +60,14 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
                      key={unit.form.name}
                      form={unit.form.name} unitIndex={unitIndex}/>;
       case "grid":
-        return <GridComponent key={unit.grid.name} unitIndex={unitIndex}/>;
+        return <GridComponent key={unit.grid.name} unitIndex={unitIndex} colDefAndData={getInitialValues(unit, application, data)}/>;
       default:
         return <div/>;
     }
   });
   return <div className="screen"><div className="content">{units}</div></div>;
 };
+
 
 
 class ScreenComponent extends React.Component {

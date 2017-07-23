@@ -3,7 +3,7 @@ import GridComponent from '../components/GridComponent';
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {gridDefinition: state.screen[ownProps.unitIndex].grid, unitKey:ownProps.unitKey};
+  return {gridDefinition: state.screen[ownProps.unitIndex].grid, unitKey:ownProps.unitKey, data:ownProps.colDefAndData.data, columndef:ownProps.colDefAndData.columndef};
 };
 
 
