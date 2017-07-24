@@ -31,7 +31,9 @@ const serviceFailure = (error) => {
 
 export const initiateServiceCall = (service, params, dispatch) => {
   dispatch(requestService());
-
+  let token = localStorage.getItem("access_token");
+  token = token==="null"?null:token; // local storage does only store string turning null into "null"
+  console.log(localStorage.getItem("access_token"));
   fetch(url + urlActions, {
     method: 'POST',
     headers: {
@@ -39,7 +41,7 @@ export const initiateServiceCall = (service, params, dispatch) => {
     },
     body: JSON.stringify({
       service: service,
-      token: localStorage.getItem("access_token"),
+      token: token,
       currentPath: window.location.pathname,
       params: params
     })
@@ -61,4 +63,5 @@ export const initiateServiceCall = (service, params, dispatch) => {
     }
   })
 };
+
 
