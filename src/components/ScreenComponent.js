@@ -60,7 +60,7 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
                      key={unit.form.name}
                      form={unit.form.name} unitIndex={unitIndex}/>;
       case "grid":
-        return <GridComponent key={unit.grid.name} unitIndex={unitIndex} colDefAndData={getInitialValues(unit, application, data)}/>;
+        return <GridComponent key={unit.grid.name} unitKey={unit.grid.name} unitIndex={unitIndex} colDefAndData={getInitialValues(unit, application, data)}/>;
       default:
         return <div/>;
     }
