@@ -4,7 +4,7 @@ import {callService} from '../actions/screen'
 
 
 const mapStateToProps = (state, ownProps) => {
-  return {formDefinition: state.screen[ownProps.unitIndex].form, unitKey:ownProps.unitKey};
+  return {formDefinition: state.screen[ownProps.unitIndex].form, unitKey: ownProps.unitKey, data: state.data};
 };
 
 const mapDispatchToProps = (dispatch) => {

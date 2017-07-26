@@ -1,48 +1,70 @@
 {
   "_id": {
-    "$oid": "59638becf36d283e6e74bf54"
+    "$oid": "5964b420734d1d77802c84b2"
   },
-  "name": "DictionaryManager",
-  "defaultScreen": "filter",
-  "loginScreen": "login",
-  "definition": {
-    "title": "Dictionary Manager",
-    "header": {
-      "title": "Dictionary Manager"
+  "name": "DictionaryFilterPage",
+  "services": [
+    {
+      "service": "dictionary/grid:getInitialColumns",
+      "storage": "data:dictionary.grid.columndef"
     },
-    "screens": [
-      {
-        "key": "home",
-        "screen": "5964b408734d1d77802c84ac",
-        "acceptedPermissions": [
-          "screen:DictionaryManager:home",
-          "screen:DictionaryManager:*"
+    {
+      "service": "dictionary/grid:getDictionaryData",
+      "storage": "data:dictionary.grid.data"
+    }
+  ],
+  "definition": [
+    {
+      "form": {
+        "name": "FilterForm",
+        "data": {
+          "filter": "data:dictionary.grid.filter"
+        },
+        "submit": {
+          "service": "dictionaryFilter",
+          "caption": "Filter"
+        },
+        "content": [
+          [
+            {
+              "heading": {
+                "text": "Dictionary Filter"
+              }
+            }
+          ],
+          [
+            {
+              "field": {
+                "label": "Section:",
+                "placeholder": "Dictioanry Section",
+                "property": "section"
+              }
+            },
+            {
+              "field": {
+                "label": "Key:",
+                "placeholder": "Key",
+                "property": "key"
+              }
+            }
+          ]
         ]
-      },
-      {
-        "key": "filter",
-        "screen": "5964b420734d1d77802c84b2",
-        "acceptedPermissions": [
-          "screen:DictionaryManager:filterscreen",
-          "screen:DictionaryManager:*"
-        ]
-      },
-      {
-        "key": "entry",
-        "screen": "59771098f36d2812888ea10e",
-        "acceptedPermissions": [
-          "screen:DictionaryManager:entry",
-          "screen:DictionaryManager:*"
-        ]
-      },
-      {
-        "key": "login",
-        "screen": "5967792d734d1d30c36ab3b8"
       }
-    ]
-  },
-  "acceptedPermissions": [
-    "app:DictionaryManager",
-    "app:all"
+    },
+    {
+      "grid": {
+        "name": "VocabularyGrid",
+        "data": {
+          "data": "data:dictionary.grid.data",
+          "columndef": "data:dictionary.grid.columndef"
+        },
+        "events": {
+          "row:doubleClick": {
+            "service": "showDictionaryEntry",
+            "screenUrl": "/DictionaryManager/entry"
+          }
+        }
+      }
+    }
   ]
 }

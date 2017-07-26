@@ -47,7 +47,7 @@ const getInitialValues = (unit, application, data) => {
 
     return values;
   }
-}
+};
 
 
 const constructScreen = (layoutData, screenId, appname, application, data) => {

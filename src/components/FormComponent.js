@@ -3,6 +3,34 @@ import Label from './LabelComponent';
 import {Field, reduxForm} from 'redux-form';
 import {exists} from '../util';
 
+const getRowDefs = (propDescriptor, data) => {
+
+  const getRootValue = (dataType) => {
+    switch (dataType) {
+      case "app":
+        return []; // TODO
+      case "data":
+        return data;
+      default:
+        return null;
+    }
+  };
+
+  if (exists(propDescriptor)) {
+    let descriptorPaths = propDescriptor.split(":", 2);
+    let value = getRootValue(descriptorPaths[0]);
+    let pathElements = descriptorPaths[1].split(".");
+    pathElements.forEach((path) => {
+      if (exists(value)) {
+        value = value[path];
+      }
+    });
+    return value;
+  }
+
+  return [];
+};
+
 
 const renderField = ({input, label, type, placeholder, meta: {touched, error}}) => {
 
@@ -28,8 +56,26 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}}) 
   )
 };
 
-const constructForm = (formDefinition, handleSubmit) => {
-  let rows = formDefinition.content.map((unit, rowIndex) => {
+const expandDynamic = (content, data) => {
+  let newContent = [];
+  content.forEach((row) => {
+    if (exists(row)) {
+      if (Array.isArray(row)) {
+        newContent.push(row)
+      } else {
+        if (exists(row.dynamic)) {
+          let dynamic = getRowDefs(row.dynamic,data);
+          dynamic.forEach((d)=>newContent.push(d));
+        }
+      }
+    }
+  });
+  return newContent;
+};
+
+const constructForm = (formDefinition, handleSubmit, data) => {
+  let content = expandDynamic(formDefinition.content, data)
+  let rows = content.map((unit, rowIndex) => {
     let rowKey = formDefinition.name + ":r" + rowIndex;
     let controls = unit.map((control, itemIndex) => {
       let controlType = Object.getOwnPropertyNames(control)[0];
@@ -58,8 +104,8 @@ const constructForm = (formDefinition, handleSubmit) => {
   </form>;
 };
 
-const FormComponent = ({formDefinition, handleSubmit}) => {
-  return constructForm(formDefinition, handleSubmit);
+const FormComponent = ({formDefinition, handleSubmit, data}) => {
+  return constructForm(formDefinition, handleSubmit, data);
 };
 
 
