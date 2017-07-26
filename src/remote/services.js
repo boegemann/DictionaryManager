@@ -33,7 +33,6 @@ export const initiateServiceCall = (service, params, dispatch) => {
   dispatch(requestService());
   let token = localStorage.getItem("access_token");
   token = token==="null"?null:token; // local storage does only store string turning null into "null"
-  console.log(localStorage.getItem("access_token"));
   fetch(url + urlActions, {
     method: 'POST',
     headers: {
