@@ -15,18 +15,14 @@ class ApplicationComponent extends React.Component {
       document.title = nextProps.title;
     }
     if (nextProps.navigation.currentUrl !== this.props.navigation.currentUrl) {
-      console.log("Navigating")
-      console.log("Pushing: " + navigation.currentUrl +  " - was: " + this.props.navigation.currentUrl);
       if (this.state.browserNavigation===true){
-        // the bbrowser initiated this navigation, no reason to play with history as well
+        // the browser initiated this navigation, no reason to play with history as well
         this.setState({"browserNavigation":false, navigating:false});
       }else{
         history.push(navigation.currentUrl);
         this.setState({navigating: true, lastLocation:navigation.currentUrl})
       }
     }else{
-      console.log("Now")
-      console.log(this.state.navigating)
       if (this.state.navigating===true){
         this.setState({navigating: false});
       }else{
