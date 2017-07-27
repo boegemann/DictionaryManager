@@ -44,7 +44,7 @@ render(
   document.getElementById('root')
 );
 
-initiateServiceCall("navigation", {oldPath: "", newPath: window.location.pathname}, store.dispatch)
+initiateServiceCall("navigation", {oldPath: "", newPath: window.location.pathname}, store.dispatch);
 
 
 
