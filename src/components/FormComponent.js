@@ -2,6 +2,11 @@ import React from 'react';
 import Label from './LabelComponent';
 import {Field, reduxForm} from 'redux-form';
 import {exists} from '../util';
+import {
+  TextField,
+} from 'redux-form-material-ui'
+
+import FlatButton from 'material-ui/FlatButton';
 
 const getRowDefs = (propDescriptor, data) => {
 
@@ -43,7 +48,7 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}}) 
       case "warning":
         return <span className={type}>{input.value}</span>
       default:
-        return <input {...input} type={type} placeholder={placeholder}/>;
+        return <TextField {...input} type={type} placeholder={placeholder}/>;
     }
   }
 
@@ -100,7 +105,7 @@ const constructForm = (formDefinition, handleSubmit, data) => {
   });
   return <form onSubmit={handleSubmit}>
     {rows}
-    <button className="form_submit" type="submit">{formDefinition.submit.caption}</button>
+    <FlatButton className="form_submit" type="submit">{formDefinition.submit.caption}</FlatButton>
   </form>;
 };
 

@@ -1,10 +1,9 @@
 import React from 'react'
-import Label from './LabelComponent'
+// import Label from './LabelComponent'
+import AppBar from 'material-ui/AppBar';
 
 const HeaderComponent = ({title}) => (
-  <div className="header_bar">
-    <Label className='app_title' text={title != null ? title : ""}/>
-  </div>
+  <AppBar title={title != null ? title : ""}/>
 );
 
 export default HeaderComponent;

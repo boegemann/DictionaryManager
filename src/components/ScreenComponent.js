@@ -5,6 +5,7 @@ import {exists} from '../util';
 
 import {withRouter} from "react-router-dom";
 
+import Paper from 'material-ui/Paper';
 
 const getInitialValues = (unit, application, data) => {
 
@@ -65,7 +66,7 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
         return <div/>;
     }
   });
-  return <div className="screen"><div className="content">{units}</div></div>;
+  return <Paper className="screen"><div className="content">{units}</div></Paper>;
 };
 
 

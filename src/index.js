@@ -10,10 +10,20 @@ import {
   Route
 } from 'react-router-dom'
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 import Application from './containers/ApplicationContainer';
 import Header from './containers/HeaderContainer';
 import Screen from './containers/ScreenContainer';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
+
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
@@ -28,8 +38,8 @@ let store = createStoreWithMiddleware(reducer, {
   }
 );
 
-
 render(
+  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/:appname?/:screen?/:key?" render={(props) => (
@@ -40,9 +50,11 @@ render(
         </div>
       )}/>
     </BrowserRouter>
-  </Provider>,
+  </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
+
 
 initiateServiceCall("navigation", {oldPath: "", newPath: window.location.pathname}, store.dispatch);
 
