@@ -2,11 +2,13 @@ import React from 'react';
 import Label from './LabelComponent';
 import {Field, reduxForm} from 'redux-form';
 import {exists} from '../util';
-import {
-  TextField,
-} from 'redux-form-material-ui'
+// import {
+//   TextField,
+// } from 'redux-form-material-ui'
 
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+
 
 const getRowDefs = (propDescriptor, data) => {
 
@@ -105,7 +107,7 @@ const constructForm = (formDefinition, handleSubmit, data) => {
   });
   return <form onSubmit={handleSubmit}>
     {rows}
-    <FlatButton className="form_submit" type="submit">{formDefinition.submit.caption}</FlatButton>
+    <Button className="form_submit" type="submit">{formDefinition.submit.caption}</Button>
   </form>;
 };
 

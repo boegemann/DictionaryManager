@@ -11,8 +11,8 @@ import {
 } from 'react-router-dom'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 import Application from './containers/ApplicationContainer';
@@ -39,7 +39,7 @@ let store = createStoreWithMiddleware(reducer, {
 );
 
 render(
-  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+  <MuiThemeProvider>
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/:appname?/:screen?/:key?" render={(props) => (
