@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@devexpress/dx-react-core": "^1.0.0-alpha.6",
+    "@devexpress/dx-react-grid": "^1.0.0-alpha.6",
+    "@devexpress/dx-react-grid-material-ui": "^1.0.0-alpha.6",
     "es6-promise": "^4.1.1",
     "font-awesome": "^4.7.0",
     "install": "^0.10.1",
