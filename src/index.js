@@ -10,11 +10,6 @@ import {
   Route
 } from 'react-router-dom'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-
 import Application from './containers/ApplicationContainer';
 import Header from './containers/HeaderContainer';
 import Screen from './containers/ScreenContainer';
@@ -39,7 +34,6 @@ let store = createStoreWithMiddleware(reducer, {
 );
 
 render(
-  <MuiThemeProvider>
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/:appname?/:screen?/:key?" render={(props) => (
@@ -50,8 +44,7 @@ render(
         </div>
       )}/>
     </BrowserRouter>
-  </Provider>
-  </MuiThemeProvider>,
+  </Provider>,
   document.getElementById('root')
 );
 
