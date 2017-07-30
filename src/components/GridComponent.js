@@ -11,9 +11,12 @@ import DeleteIcon from 'material-ui-icons/Delete';
 
 class GridComponent extends React.Component {
 
+
   render() {
     let {gridDefinition, data, columndef, events, unitKey, selection, edit} = this.props;
     const pageSize = 5;
+
+    const fEdit = ()=>{edit(selection,gridDefinition.edit)}
 
     return <div>
 
@@ -33,12 +36,13 @@ class GridComponent extends React.Component {
             </IconButton>)
           }
           {gridDefinition.edit!=null  && selection!=null && (
-            <IconButton aria-label="Filter list">
-              <EditIcon onTouchTap={function(){edit(selection,gridDefinition.edit)}}/>
+            <IconButton aria-label="Filter list" onTouchTap={fEdit}>
+              <EditIcon />
             </IconButton>)
           }
         </div>
       </Toolbar>
+
 
       <Grid
         data={data}
