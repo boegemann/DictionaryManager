@@ -8,7 +8,8 @@ import {exists} from '../util';
 
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-
+import Typography from 'material-ui/Typography';
+import Toolbar from 'material-ui/Toolbar'
 
 const getRowDefs = (propDescriptor, data) => {
 
@@ -56,7 +57,7 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}}) 
 
   return (
     <div className="field">
-      {exists(label) && <label className="form_label">{label}</label>}
+      {exists(label) && <label className="form_label"><Typography  type="caption">{label}</Typography></label>}
       {getInput()}
       {touched && error && <div className="error">{error}</div>}
     </div>
@@ -89,8 +90,9 @@ const constructForm = (formDefinition, handleSubmit, data) => {
       let itemKey = rowKey + ":" + itemIndex;
       switch (controlType) {
         case "label":
-        case "heading":
           return <Label className={controlType} key={itemKey} text={control[controlType].text}/>;
+        case "heading":
+          return <label className={controlType} key={itemKey}><Typography key={"t" + itemKey} type="subheading">{control[controlType].text}</Typography></label>;
         case "field":
           let field = control.field;
           return <Field key={field.property}
@@ -106,10 +108,21 @@ const constructForm = (formDefinition, handleSubmit, data) => {
     return <div key={rowKey} className="row">{controls}</div>;
   });
   return <form onSubmit={handleSubmit}>
+    <Toolbar>
+      <div>
+        <Typography type="title">{formDefinition.title}</Typography>
+      </div>
+    </Toolbar>
     {rows}
-    <Button className="form_submit" type="submit">{formDefinition.submit.caption}</Button>
+    <Toolbar>
+      <div className="grid_spacer"/>
+      <div className="grid_actions">
+        <Button className="form_submit" type="submit">{formDefinition.submit.caption}</Button>
+      </div>
+    </Toolbar>
   </form>;
 };
+
 
 const FormComponent = ({formDefinition, handleSubmit, data}) => {
   return constructForm(formDefinition, handleSubmit, data);

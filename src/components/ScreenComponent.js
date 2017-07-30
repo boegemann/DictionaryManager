@@ -57,16 +57,23 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
     let unitType = Object.getOwnPropertyNames(unit)[0];
     switch (unitType) {
       case "form":
-        return <Form enableReinitialize="true" initialValues={getInitialValues(unit, application, data)}
+        return <Paper key={"P" + unit.form.name} className="screen_unit"><Form enableReinitialize="true" initialValues={getInitialValues(unit, application, data)}
                      key={unit.form.name}
-                     form={unit.form.name} unitIndex={unitIndex}/>;
+                     form={unit.form.name} unitIndex={unitIndex}/></Paper>;
       case "grid":
-        return <GridComponent events={unit.grid.events} key={unit.grid.name} unitKey={unit.grid.name} unitIndex={unitIndex} colDefAndData={getInitialValues(unit, application, data)}/>;
+        return <Paper key={"P" + unit.grid.name} className="screen_unit">
+          <GridComponent
+            events={unit.grid.events}
+            key={unit.grid.name}
+            unitKey={unit.grid.name}
+            unitIndex={unitIndex}
+            colDefAndData={getInitialValues(unit, application, data)}/>
+        </Paper>;
       default:
         return <div/>;
     }
   });
-  return <Paper className="screen"><div className="content">{units}</div></Paper>;
+  return <div className="screen"><div className="content">{units}</div></div>;
 };
 
 

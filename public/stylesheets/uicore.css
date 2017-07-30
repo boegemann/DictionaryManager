@@ -32,7 +32,7 @@ header {
 
 .screen {
   margin: auto;
-  margin-top: 80px;
+  margin-top: 70px;
   text-align: center;
   width: 95%; }
 
@@ -62,9 +62,17 @@ button {
   margin-right: 25px; }
 
 form {
-  display: inline-block; }
+  display: inline-block;
+  margin: 10px; }
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset; }
+
+.grid_spacer {
+  flex: 1 1 auto; }
+
+.screen_unit {
+  margin-top: 10px;
+  padding: 10px; }
 
 /*# sourceMappingURL=uicore.css.map */
