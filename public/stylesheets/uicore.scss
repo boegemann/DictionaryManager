@@ -4,26 +4,6 @@ $screen-margin-top: 70px;
 $form-label-width: 80px;
 $header-bar-background:#f7f7f7;
 
-.completed {
-  text-decoration: line-through;
-}
-
-.app_title {
-  font-size: x-large;
-  font-weight: bold;
-  display: inline-block;
-  margin-left: 20px;
-  margin-top: 10px;
-}
-
-
-header {
-  position: fixed;
-}
-
-.row {
-  line-height: 150%;
-}
 
 .form_label {
   display: inline-block;
@@ -59,17 +39,6 @@ header {
   padding: 20px;
 }
 
-button {
-  background: none;
-  border:none;
-  float: right;
-  text-decoration: underline;
-  font-weight: bold;
-  color:blue;
-  margin-top:10px;
-  cursor: pointer;
-}
-
 .react-grid-container {
   margin-top:20px;
 }
@@ -85,7 +54,7 @@ button {
 
 form {
   display: inline-block;
-  margin:10px;
+  margin: 0px 10px;
 }
 
 input:-webkit-autofill {
