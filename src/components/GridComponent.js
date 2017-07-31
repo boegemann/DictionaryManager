@@ -1,7 +1,6 @@
 import React from 'react';
 import {Grid} from 'react-redux-grid';
 import Toolbar from 'material-ui/Toolbar'
-import Paper from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 

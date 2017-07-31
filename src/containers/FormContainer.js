@@ -10,9 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSubmit: (params) => {
-      var cleanedParams = {...params};
-      delete cleanedParams.service
-      dispatch(callService(params.service, cleanedParams))
+      dispatch(callService(params.service, params.submit))
     }
   }
 };

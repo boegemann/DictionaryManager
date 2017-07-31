@@ -42,7 +42,17 @@ const getInitialValues = (unit, application, data) => {
               value = value[path];
             }
           });
-          values[propName] = value;
+          let propNamePath = propName.split(":");
+          let lastProp = propNamePath.pop();
+          let destRoot = values;
+          propNamePath.forEach((path) => {
+            if (!exists(destRoot[path])) {
+              destRoot[path] = {}
+            }
+            destRoot = destRoot[path];
+          });
+
+          destRoot[lastProp] = value;
         }
       });
 
@@ -57,9 +67,11 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
     let unitType = Object.getOwnPropertyNames(unit)[0];
     switch (unitType) {
       case "form":
-        return <Paper key={"P" + unit.form.name} className="screen_unit"><Form enableReinitialize="true" initialValues={getInitialValues(unit, application, data)}
-                     key={unit.form.name}
-                     form={unit.form.name} unitIndex={unitIndex}/></Paper>;
+        return <Paper key={"P" + unit.form.name} className="screen_unit"><Form enableReinitialize="true"
+                                                                               initialValues={getInitialValues(unit, application, data)}
+                                                                               key={unit.form.name}
+                                                                               form={unit.form.name}
+                                                                               unitIndex={unitIndex}/></Paper>;
       case "grid":
         return <Paper key={"P" + unit.grid.name} className="screen_unit">
           <GridComponent
@@ -73,9 +85,10 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
         return <div/>;
     }
   });
-  return <div className="screen"><div className="content">{units}</div></div>;
+  return <div className="screen">
+    <div className="content">{units}</div>
+  </div>;
 };
-
 
 
 class ScreenComponent extends React.Component {

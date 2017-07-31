@@ -1,9 +1,6 @@
 import {url} from '../env';
 
 const urlActions = "/ACTIONS";
-
-
-
 export const SERVICE_CALL_SUCCESS = 'SCREEN_DATA_SUCCESS';
 export const SERVICE_CALL_FAILURE = 'SCREEN_DATA_FAILURE';
 export const SERVICE_CALL_START = 'SCREEN_DATA_REQUEST';
@@ -30,6 +27,7 @@ const serviceFailure = (error) => {
 
 
 export const initiateServiceCall = (service, params, dispatch) => {
+
   dispatch(requestService());
   let token = localStorage.getItem("access_token");
   token = token==="null"?null:token; // local storage does only store string turning null into "null"
