@@ -13,6 +13,9 @@ import {
 import Application from './containers/ApplicationContainer';
 import Header from './containers/HeaderContainer';
 import Screen from './containers/ScreenContainer';
+
+import Snack from './containers/SnackContainer'
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap
@@ -41,6 +44,7 @@ render(
           <Application {...props}/>
           <Header {...props}/>
           <Screen {...props}/>
+            <Snack/>
         </div>
       )}/>
     </BrowserRouter>
