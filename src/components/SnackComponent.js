@@ -13,7 +13,7 @@ class SnackComponent extends React.Component {
     }
 
     render() {
-        let {text, duration, level, open=false} = this.props;
+        let {text, open=false} = this.props;
         return <Snackbar
             anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
             open={open}

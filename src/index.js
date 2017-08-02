@@ -6,8 +6,8 @@ import thunkMiddleware from 'redux-thunk';
 import {initiateServiceCall} from './remote/services';
 import {Provider} from 'react-redux';
 import {
-  BrowserRouter,
-  Route
+    BrowserRouter,
+    Route
 } from 'react-router-dom'
 
 import Application from './containers/ApplicationContainer';
@@ -15,6 +15,8 @@ import Header from './containers/HeaderContainer';
 import Screen from './containers/ScreenContainer';
 
 import Snack from './containers/SnackContainer'
+import Alert from './containers/AlertContainer'
+
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -26,30 +28,31 @@ injectTapEventPlugin();
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
 let store = createStoreWithMiddleware(reducer, {
-    application: {
-      title: "Loading ...",
-      navigation: {
-        currentUrl: window.location.pathname,
-        targetUrl: ""
-      }
+        application: {
+            title: "Loading ...",
+            navigation: {
+                currentUrl: window.location.pathname,
+                targetUrl: ""
+            }
+        }
     }
-  }
 );
 
 render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Route path="/:appname?/:screen?/:key?" render={(props) => (
-        <div>
-          <Application {...props}/>
-          <Header {...props}/>
-          <Screen {...props}/>
-            <Snack/>
-        </div>
-      )}/>
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <BrowserRouter>
+            <Route path="/:appname?/:screen?/:key?" render={(props) => (
+                <div>
+                    <Application {...props}/>
+                    <Header {...props}/>
+                    <Screen {...props}/>
+                    <Snack/>
+                    <Alert/>
+                </div>
+            )}/>
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
 );
 
 

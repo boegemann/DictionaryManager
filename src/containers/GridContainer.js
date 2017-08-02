@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import GridComponent from '../components/GridComponent';
 import {callService} from '../actions/screen'
 import {rowSelected} from '../actions/grid'
+import {createAlert} from '../actions/alert'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
@@ -18,10 +19,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(callService(service, params));
         },
         remove: (selection, removeDef) => {
-            let service = removeDef.service;
-            delete removeDef.service;
-            let params = {rowData: selection, eventInfo: removeDef};
-            dispatch(callService(service, params));
+            const doRemove = () => {
+                let service = removeDef.service;
+                delete removeDef.service;
+                let params = {rowData: selection, eventInfo: removeDef};
+                dispatch(callService(service, params));
+            };
+
+
+            dispatch(createAlert({
+                title: "Remove Item?",
+                contentText: "This will remove the selected item permanently",
+                actionOK:doRemove
+            }))
         },
         events: {
             HANDLE_CELL_CLICK: () => {

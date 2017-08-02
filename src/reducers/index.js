@@ -4,7 +4,8 @@ import header from './header';
 import screen from './screen';
 import data from './data';
 import gridSelection from './grid';
-import snack from './snack'
+import snack from './snack';
+import alert from './alert';
 import {reducer as formReducer} from 'redux-form';
 import {Reducers} from 'react-redux-grid';
 
@@ -15,6 +16,7 @@ const todoApp = combineReducers({
     data,
     gridSelection,
     snack,
+    alert,
     form: formReducer,
     ...Reducers
 });

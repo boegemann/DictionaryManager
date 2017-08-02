@@ -142,7 +142,7 @@ class FormComponent extends React.Component {
     }
 
     render() {
-        let {formDefinition, handleSubmit, data, pausedPath} = this.props;
+        let {formDefinition, handleSubmit, data} = this.props;
         return constructForm(formDefinition, handleSubmit, data);
     }
 }
