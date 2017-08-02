@@ -33,6 +33,12 @@ const validate = (values, {data, formDefinition}) => {
                                 addError(errors,propertyPath,validation.message)
                             }
                             break;
+                        case "regex":
+                            let regex = new RegExp(validation.regex)
+                            if (!regex.test(value)) {
+                                addError(errors,propertyPath,validation.message)
+                            }
+                            break;
                         default:
                     }
                 });
