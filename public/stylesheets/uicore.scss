@@ -45,6 +45,7 @@ $header-bar-background:#f7f7f7;
 
 .row {
   clear: both;
+  min-height: 15px; // to allow empty rows as divider
 }
 
 .field {

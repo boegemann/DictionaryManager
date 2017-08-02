@@ -45,9 +45,11 @@ render(
                 <div>
                     <Application {...props}/>
                     <Header {...props}/>
-                    <Screen {...props}/>
-                    <Snack/>
+                    <Screen {...props}>
+                    </Screen>
                     <Alert/>
+                    <Snack/>
+
                 </div>
             )}/>
         </BrowserRouter>

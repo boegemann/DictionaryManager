@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
         formDefinition: state.screen[ownProps.unitIndex].form,
         unitKey: ownProps.unitKey,
         data: state.data,
-        pausedPath: state.application.navigation.pausedPath
+        pausedPath: state.application.navigation.pausedPath,
     };
 };
 
