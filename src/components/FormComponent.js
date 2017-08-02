@@ -10,6 +10,51 @@ import Typography from 'material-ui/Typography';
 import Toolbar from 'material-ui/Toolbar'
 import Divider from 'material-ui/Divider'
 
+const validate = (values, {data, formDefinition}) => {
+    const errors = {}
+    expandDynamic(formDefinition.content, data).forEach((row) => {
+        if (Array.isArray(row)) {
+            row.filter((item) => {
+                let type = Object.getOwnPropertyNames(item)[0];
+                return exists(type) && type === "field" && exists(item.field.validate)
+            }).forEach((validatedField) => {
+                let propertyName = validatedField.field.property;
+                let propertyPath = propertyName.split(".");
+                let value = values;
+                propertyPath.forEach((pathElement) => {
+                    if (exists(value)) value = value[pathElement]
+                });
+
+                validatedField.field.validate.forEach((validation) => {
+                    let type = validation.type;
+                    switch (type) {
+                        case "required":
+                            if (!exists(value)||(exists(value.trim) && value.trim()==="")) {
+                                addError(errors,propertyPath,validation.message)
+                            }
+                            break;
+                        default:
+                    }
+                });
+
+            });
+        }
+    });
+    return errors
+};
+
+function addError(errors, propertyPath, message) {
+    const lastProp = propertyPath.pop();
+    let curLevel = errors;
+    propertyPath.forEach((pathElement) => {
+        if(!exists(curLevel[pathElement])){
+            curLevel[pathElement]={}
+        }
+        curLevel = curLevel[pathElement];
+    })
+    curLevel[lastProp]=message;
+}
+
 const getRowDefs = (propDescriptor, data) => {
 
     const getRootValue = (dataType) => {
@@ -84,7 +129,7 @@ const expandDynamic = (content, data) => {
     return newContent;
 };
 
-const constructForm = (formDefinition, handleSubmit, data, pristine, submitting, navigate, pausedPath) => {
+const constructForm = (formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath) => {
     let content = expandDynamic(formDefinition.content, data)
     let rows = content.map((unit, rowIndex) => {
         let rowKey = formDefinition.name + ":r" + rowIndex;
@@ -123,10 +168,10 @@ const constructForm = (formDefinition, handleSubmit, data, pristine, submitting,
         <Toolbar>
             <div className="grid_spacer"/>
             <div className="grid_actions">
-                {exists(formDefinition.cancel) &&<Button onClick={() => {
+                {exists(formDefinition.cancel) && <Button onClick={() => {
                     navigate(pausedPath)
                 }}>{formDefinition.cancel}</Button>}
-                <Button disabled={pristine || submitting}
+                <Button disabled={pristine || submitting || invalid}
                         type="submit">{formDefinition.submit.caption}</Button>
             </div>
         </Toolbar>
@@ -146,13 +191,13 @@ class FormComponent extends React.Component {
     }
 
     render() {
-        let {formDefinition, handleSubmit, data, pristine, submitting, navigate, pausedPath} = this.props;
-        return constructForm(formDefinition, handleSubmit, data, pristine, submitting, navigate, pausedPath);
+        let {formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath} = this.props;
+        return constructForm(formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath);
     }
 }
 
 
-const Formed = reduxForm()(FormComponent);
+const Formed = reduxForm({validate})(FormComponent);
 
 
 export default Formed;

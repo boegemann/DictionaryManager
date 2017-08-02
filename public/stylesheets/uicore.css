@@ -29,11 +29,13 @@
   margin-top: 20px; }
 
 .row {
-  clear: both; }
+  clear: both;
+  min-height: 15px; }
 
 .field {
   display: inline-block;
-  margin-right: 25px; }
+  margin-right: 25px;
+  vertical-align: top; }
 
 form {
   display: inline-block;
