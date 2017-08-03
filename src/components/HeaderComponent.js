@@ -4,12 +4,65 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import Typography from 'material-ui/Typography';
+import Menu, {MenuItem} from 'material-ui/Menu';
+import Button from 'material-ui/Button';
+import {withStyles, createStyleSheet} from 'material-ui/styles';
+
+const styleSheet = createStyleSheet(theme => ({
+    button: {
+        "vertical-align": "bottom",
+        "height": "36px",
+        "min-width": "0px",
+        margin: 0,
+        padding: "0 8px"
+    },
+}));
 
 class HeaderComponent extends React.Component {
 
+    state = {
+        anchorEl: undefined,
+        open: false,
+    };
+
+    handleClick = event => {
+        this.setState({open: true, anchorEl: event.currentTarget});
+    };
+
+    handleRequestClose = () => {
+        this.setState({open: false});
+    };
+
+
+
+    paintMenu(locale, canChangeLocale, classes, chooseLocale) {
+        if (canChangeLocale) {
+
+            const items = locale.locales.available.map(curLocale => {
+                return <MenuItem
+                    className={classes.button}
+                    key={curLocale}
+                    selected={curLocale === locale.current}
+                    onClick={() => {
+                        chooseLocale(locale.current, curLocale);
+                        this.handleRequestClose();
+                    }}>{curLocale.toUpperCase()}
+                </MenuItem>
+            });
+
+            return <Menu
+                id="simple-menu"
+                anchorEl={this.state.anchorEl}
+                open={this.state.open}
+                onRequestClose={this.handleRequestClose}
+            >
+                {items}
+            </Menu>
+        }
+    }
 
     render() {
-        let {title, logout, isLoggedIn} = this.props;
+        let {title, logout, isLoggedIn, locale, canChangeLocale, classes, chooseLocale} = this.props;
 
         return <AppBar position="fixed" color="default">
             <Toolbar>
@@ -18,15 +71,18 @@ class HeaderComponent extends React.Component {
                 </Typography>
 
                 <div className="grid_spacer"/>
-                <div className="grid_actions">
-                    {isLoggedIn() && <IconButton aria-label="Log Out" onTouchTap={logout}>
+                <div className="appbar_actions">
+                    {canChangeLocale &&
+                    <Button className={classes.button} onClick={this.handleClick}>{locale.current}</Button>}
+                    {isLoggedIn && <IconButton className={classes.button} aria-label="Log Out" onTouchTap={logout}>
                         <ExitToAppIcon/>
                     </IconButton>}
                 </div>
             </Toolbar>
+            {this.paintMenu(locale, canChangeLocale, classes, chooseLocale)}
+
         </AppBar>
     }
 }
 
-
-export default HeaderComponent;
+export default withStyles(styleSheet)(HeaderComponent);

@@ -10,6 +10,10 @@
 .header_icon {
   color: black; }
 
+.localeButton {
+  padding: 0;
+  margin: 0; }
+
 .error {
   color: orange; }
 
@@ -49,6 +53,10 @@ input:-webkit-autofill {
 
 .grid_spacer {
   flex: 1 1 auto; }
+
+.appbar_actions {
+  position: inherit;
+  top: 15px; }
 
 .screen_unit {
   margin-top: 10px;
