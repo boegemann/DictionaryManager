@@ -7,6 +7,9 @@
   font-weight: bold;
   font-size: 1.2em; }
 
+.header_icon {
+  color: black; }
+
 .error {
   color: orange; }
 
@@ -39,10 +42,10 @@
 
 form {
   display: inline-block;
-  margin: 0px 10px; }
+  margin: 0 10px; }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset; }
+  -webkit-box-shadow: 0 0 0 1000px #fff inset; }
 
 .grid_spacer {
   flex: 1 1 auto; }

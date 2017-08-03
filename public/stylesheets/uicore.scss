@@ -2,7 +2,6 @@ $warning-color: orange;
 $error-color: orange;
 $screen-margin-top: 70px;
 $form-label-width: 80px;
-$header-bar-background:#f7f7f7;
 
 
 .form_label {
@@ -14,6 +13,9 @@ $header-bar-background:#f7f7f7;
   display: inline-block;
   font-weight: bold;
   font-size:1.2em;
+}
+.header_icon {
+  color:black;
 }
 
 
@@ -56,11 +58,11 @@ $header-bar-background:#f7f7f7;
 
 form {
   display: inline-block;
-  margin: 0px 10px;
+  margin: 0 10px;
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
 }
 .grid_spacer {
   flex: 1 1 auto;
