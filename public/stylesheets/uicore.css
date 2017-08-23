@@ -29,8 +29,7 @@
 
 .content {
   display: inline-block;
-  text-align: initial;
-  padding: 20px; }
+  text-align: initial; }
 
 .react-grid-container {
   margin-top: 20px; }

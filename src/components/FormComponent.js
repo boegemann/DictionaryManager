@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const validate = (values, {data, formDefinition}) => {
-    const errors = {}
+    const errors = {};
     expandDynamic(formDefinition.content, data).forEach((row) => {
         if (Array.isArray(row)) {
             row.filter((item) => {
@@ -100,7 +100,7 @@ const getRowDefs = (propDescriptor, data) => {
 };
 
 
-const renderField = ({input, label, type, placeholder, meta: {touched, error}, classes}) => {
+const renderField = ({input, label, type, placeholder, meta: {touched, error}, classes, required}) => {
 
     const getInput = () => {
         switch (type) {
@@ -116,10 +116,12 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}, c
                     margin="normal"
                     className={classes.textField}
                     label={label}
-                    error={touched && error} {...input}
+                    error={touched && error?true:false}
                     helperText={helperText}
                     type={type}
-                    placeholder={placeholder}/>;
+                    required={required}
+                    placeholder={placeholder}
+                    {...input}/>;
         }
     }
 
@@ -168,12 +170,14 @@ const constructForm = (formDefinition, handleSubmit, data, pristine, submitting,
                                                                                     type="subheading">{control[controlType].text}</Typography></label>;
                 case "field":
                     let field = control.field;
+                    let required = exists(field.validate) && field.validate.filter(o => o.type === "required") ? true : false;
                     return <Field key={field.property}
                                   name={field.property}
                                   type={(field.type === null || field.type === undefined) ? 'text' : field.type}
                                   placeholder={field.placeholder}
                                   component={renderField}
                                   classes={classes}
+                                  required={required}
                                   label={field.label}/>;
                 default:
                     return <div/>;
@@ -182,7 +186,7 @@ const constructForm = (formDefinition, handleSubmit, data, pristine, submitting,
         return <div key={rowKey} className="row">{controls}</div>;
     });
     return <form onSubmit={handleSubmit}>
-        <Toolbar>
+        <Toolbar disableGutters>
             <div>
                 <Typography type="title">{formDefinition.title}</Typography>
             </div>
