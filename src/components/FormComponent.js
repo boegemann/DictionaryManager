@@ -9,9 +9,18 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Toolbar from 'material-ui/Toolbar'
 import Divider from 'material-ui/Divider'
+import {withStyles} from 'material-ui/styles';
+
+const styles = theme => ({
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200
+    },
+});
 
 const validate = (values, {data, formDefinition}) => {
-    const errors = {}
+    const errors = {};
     expandDynamic(formDefinition.content, data).forEach((row) => {
         if (Array.isArray(row)) {
             row.filter((item) => {
@@ -29,14 +38,14 @@ const validate = (values, {data, formDefinition}) => {
                     let type = validation.type;
                     switch (type) {
                         case "required":
-                            if (!exists(value)||(exists(value.trim) && value.trim()==="")) {
-                                addError(errors,propertyPath,validation.message)
+                            if (!exists(value) || (exists(value.trim) && value.trim() === "")) {
+                                addError(errors, propertyPath, validation.message)
                             }
                             break;
                         case "regex":
                             let regex = new RegExp(validation.regex)
                             if (!regex.test(value)) {
-                                addError(errors,propertyPath,validation.message)
+                                addError(errors, propertyPath, validation.message)
                             }
                             break;
                         default:
@@ -49,16 +58,17 @@ const validate = (values, {data, formDefinition}) => {
     return errors
 };
 
-function addError(errors, propertyPath, message) {
+function addError(errors, propPath, message) {
+    let propertyPath = Array.from(propPath);
     const lastProp = propertyPath.pop();
     let curLevel = errors;
     propertyPath.forEach((pathElement) => {
-        if(!exists(curLevel[pathElement])){
-            curLevel[pathElement]={}
+        if (!exists(curLevel[pathElement])) {
+            curLevel[pathElement] = {}
         }
         curLevel = curLevel[pathElement];
-    })
-    curLevel[lastProp]=message;
+    });
+    curLevel[lastProp] = message;
 }
 
 const getRowDefs = (propDescriptor, data) => {
@@ -90,7 +100,7 @@ const getRowDefs = (propDescriptor, data) => {
 };
 
 
-const renderField = ({input, label, type, placeholder, meta: {touched, error}}) => {
+const renderField = ({input, label, type, placeholder, meta: {touched, error}, classes, required}) => {
 
     const getInput = () => {
         switch (type) {
@@ -101,15 +111,23 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}}) 
             case "warning":
                 return <span className={type}>{input.value}</span>
             default:
-                return <TextField {...input} type={type} placeholder={placeholder}/>;
+                let helperText = touched && error ? error : null;
+                return <TextField
+                    margin="normal"
+                    className={classes.textField}
+                    label={label}
+                    error={touched && error?true:false}
+                    helperText={helperText}
+                    type={type}
+                    required={required}
+                    placeholder={placeholder}
+                    {...input}/>;
         }
     }
 
     return (
         <div className="field">
-            {exists(label) && <label className="form_label"><Typography type="caption">{label}</Typography></label>}
             {getInput()}
-            {touched && error && <div className="error">{error}</div>}
         </div>
     )
 };
@@ -135,7 +153,7 @@ const expandDynamic = (content, data) => {
     return newContent;
 };
 
-const constructForm = (formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath) => {
+const constructForm = (formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath, classes) => {
     let content = expandDynamic(formDefinition.content, data)
     let rows = content.map((unit, rowIndex) => {
         let rowKey = formDefinition.name + ":r" + rowIndex;
@@ -152,11 +170,14 @@ const constructForm = (formDefinition, handleSubmit, data, pristine, submitting,
                                                                                     type="subheading">{control[controlType].text}</Typography></label>;
                 case "field":
                     let field = control.field;
+                    let required = exists(field.validate) && field.validate.filter(o => o.type === "required") ? true : false;
                     return <Field key={field.property}
                                   name={field.property}
                                   type={(field.type === null || field.type === undefined) ? 'text' : field.type}
                                   placeholder={field.placeholder}
                                   component={renderField}
+                                  classes={classes}
+                                  required={required}
                                   label={field.label}/>;
                 default:
                     return <div/>;
@@ -165,7 +186,7 @@ const constructForm = (formDefinition, handleSubmit, data, pristine, submitting,
         return <div key={rowKey} className="row">{controls}</div>;
     });
     return <form onSubmit={handleSubmit}>
-        <Toolbar>
+        <Toolbar disableGutters>
             <div>
                 <Typography type="title">{formDefinition.title}</Typography>
             </div>
@@ -197,8 +218,8 @@ class FormComponent extends React.Component {
     }
 
     render() {
-        let {formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath} = this.props;
-        return constructForm(formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath);
+        let {formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath, classes} = this.props;
+        return constructForm(formDefinition, handleSubmit, data, pristine, submitting, invalid, navigate, pausedPath, classes);
     }
 }
 
@@ -206,5 +227,5 @@ class FormComponent extends React.Component {
 const Formed = reduxForm({validate})(FormComponent);
 
 
-export default Formed;
+export default withStyles(styles)(Formed);
 

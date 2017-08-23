@@ -10,6 +10,10 @@
 .header_icon {
   color: black; }
 
+.localeButton {
+  padding: 0;
+  margin: 0; }
+
 .error {
   color: orange; }
 
@@ -25,8 +29,7 @@
 
 .content {
   display: inline-block;
-  text-align: initial;
-  padding: 20px; }
+  text-align: initial; }
 
 .react-grid-container {
   margin-top: 20px; }
@@ -49,6 +52,10 @@ input:-webkit-autofill {
 
 .grid_spacer {
   flex: 1 1 auto; }
+
+.appbar_actions {
+  position: inherit;
+  top: 15px; }
 
 .screen_unit {
   margin-top: 10px;

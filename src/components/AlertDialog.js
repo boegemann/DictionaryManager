@@ -9,19 +9,6 @@ import Dialog, {
 
 export default class AlertDialog extends Component {
 
-    constructor() {
-        super()
-        this.props = {
-            title: "",
-            open:false,
-            contentText: "",
-            btnOkCaption: "OK",
-            btnCancelCaption: "Cancel",
-            actionOK: () => {
-                alert("OK")
-            }
-        }
-    }
 
     state = {
         open: false
