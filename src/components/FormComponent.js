@@ -49,7 +49,8 @@ const validate = (values, {data, formDefinition}) => {
     return errors
 };
 
-function addError(errors, propertyPath, message) {
+function addError(errors, propPath, message) {
+    let propertyPath = Array.from(propPath);
     const lastProp = propertyPath.pop();
     let curLevel = errors;
     propertyPath.forEach((pathElement) => {
@@ -57,7 +58,7 @@ function addError(errors, propertyPath, message) {
             curLevel[pathElement]={}
         }
         curLevel = curLevel[pathElement];
-    })
+    });
     curLevel[lastProp]=message;
 }
 

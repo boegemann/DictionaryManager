@@ -25,7 +25,6 @@
     "react-widgets": "^3.4.8",
     "redux": "^3.7.1",
     "redux-form": "^7.0.3",
-    "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {

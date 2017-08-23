@@ -6,17 +6,17 @@ import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import Typography from 'material-ui/Typography';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Button from 'material-ui/Button';
-import {withStyles, createStyleSheet} from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
-const styleSheet = createStyleSheet(theme => ({
-    button: {
+const styles = theme => ({    button: {
+
         "vertical-align": "bottom",
-        "height": "36px",
         "min-width": "0px",
         margin: 0,
+        "height": "36px",
         padding: "0 8px"
     },
-}));
+});
 
 class HeaderComponent extends React.Component {
 
@@ -85,4 +85,4 @@ class HeaderComponent extends React.Component {
     }
 }
 
-export default withStyles(styleSheet)(HeaderComponent);
+export default withStyles(styles)(HeaderComponent);
