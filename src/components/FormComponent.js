@@ -224,7 +224,11 @@ class FormComponent extends React.Component {
 }
 
 
-const Formed = reduxForm({validate})(FormComponent);
+const Formed = reduxForm({
+    validate: validate,
+    enableReinitialize:true,
+    keepDirtyOnReinitialize: true
+})(FormComponent);
 
 
 export default withStyles(styles)(Formed);

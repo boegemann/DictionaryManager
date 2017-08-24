@@ -3,6 +3,7 @@ import FormComponent from '../components/FormComponent';
 import {callService} from '../actions/screen'
 import {createSnack} from '../actions/snack'
 import {initiateServiceCall} from '../remote/services';
+import {initialize} from 'redux-form';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,15 +15,16 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onSubmit: (params) => {
-            dispatch(callService(params.service, params.submit))
+            dispatch(callService(params.service, params.submit));
+            dispatch(initialize(ownProps.form, params));
         },
-        navigate:function(to){
+        navigate: function (to) {
             initiateServiceCall("navigation", {oldPath: window.location.pathname, newPath: to}, dispatch)
         },
-        snack:function(text){
+        snack: function (text) {
             dispatch(createSnack(text));
         }
     }
