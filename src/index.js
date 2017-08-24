@@ -16,6 +16,7 @@ import Screen from './containers/ScreenContainer';
 
 import Snack from './containers/SnackContainer'
 import Alert from './containers/AlertContainer'
+import Grid from 'material-ui/Grid';
 
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -42,7 +43,7 @@ render(
     <Provider store={store}>
         <BrowserRouter>
             <Route path="/:appname?/:screen?/:key?" render={(props) => (
-                <div>
+                <Grid className="app" container spacing={24}>
                     <Application {...props}/>
                     <Header {...props}/>
                     <Screen {...props}>
@@ -50,7 +51,7 @@ render(
                     <Alert/>
                     <Snack/>
 
-                </div>
+                </Grid>
             )}/>
         </BrowserRouter>
     </Provider>,

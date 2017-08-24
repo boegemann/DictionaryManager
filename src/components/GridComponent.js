@@ -55,7 +55,7 @@ class GridComponent extends React.Component {
 
             <Grid
                 data={data}
-                stateKey={unitKey}
+                stateKey={unitKey + localStorage.getItem("locale")}
                 columns={columndef}
                 events={events}
                 pageSize={pageSize}

@@ -92,6 +92,8 @@ const constructScreen = (layoutData, screenId, appname, application, data) => {
     return <div className="screen">
         <div className="content">{units}</div>
     </div>;
+
+
 };
 
 

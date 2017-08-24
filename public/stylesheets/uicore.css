@@ -21,10 +21,12 @@
   color: orange;
   font-weight: bold; }
 
+.app {
+  padding-top: 80px; }
+
 .screen {
-  margin: auto;
-  margin-top: 70px;
   text-align: center;
+  margin: auto;
   width: 95%; }
 
 .content {
