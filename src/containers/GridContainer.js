@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import GridComponent from '../components/GridComponent';
 import {callService} from '../actions/screen'
-import {rowSelected} from '../actions/grid'
+import {rowsSelected} from '../actions/grid'
 import {createAlert} from '../actions/alert'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         edit: (selection, editDef) => {
             let service = editDef.service;
             delete editDef.service;
-            let params = {rowData: selection, eventInfo: editDef};
+            let params = {rowData: selection[0], eventInfo: editDef};
             dispatch(callService(service, params));
         },
         add: (addDef) => {
@@ -30,77 +30,33 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(createAlert({
                 title: "Remove Item?",
                 contentText: "This will remove the selected item permanently",
-                actionOK:doRemove
+                actionOK: doRemove
             }))
         },
-        events: {
-            HANDLE_CELL_CLICK: () => {
-            },
-            HANDLE_CELL_DOUBLE_CLICK: () => {
-            },
-            HANDLE_BEFORE_ROW_CLICK: () => {
-            },
-            HANDLE_ROW_CLICK: () => {
-            },
-            HANDLE_ROW_DOUBLE_CLICK: ({row}, event) => {
-                if (ownProps.hasOwnProperty("events") && ownProps.events.hasOwnProperty("row:doubleClick")) {
-                    let service = ownProps.events["row:doubleClick"].service;
-                    let params = {rowData: {...row}, eventInfo: {...ownProps.events["row:doubleClick"]}};
-                    delete params.eventInfo.service;
-                    dispatch(callService(service, params));
-                }
-            },
-            HANDLE_BEFORE_SELECTION: () => {
-            },
-            HANDLE_AFTER_SELECTION: ({selected, data}) => {
-                dispatch(rowSelected(ownProps.unitKey, data, selected));
 
-            },
-            HANDLE_BEFORE_INLINE_EDITOR_SAVE: () => {
-            },
-            HANDLE_AFTER_INLINE_EDITOR_SAVE: () => {
-            },
-            HANDLE_BEFORE_BULKACTION_SHOW: () => {
-            },
-            HANDLE_AFTER_BULKACTION_SHOW: () => {
-            },
-            HANDLE_BEFORE_SORT: () => {
-            },
-            HANLE_BEFORE_EDIT: () => {
-            },
-            HANDLE_AFTER_SELECT_ALL: () => {
-            },
-            HANDLE_AFTER_DESELECT_ALL: () => {
-            },
-            HANDLE_AFTER_ROW_DROP: () => {
-            },
-            HANDLE_BEFORE_TREE_CHILD_CREATE: () => {
-            },
-            HANDLE_EDITOR_FOCUS: () => {
-            },
-            HANDLE_EDITOR_BLUR: () => {
-            }
+        onSelectionChange: (selected) => {
+            dispatch(rowsSelected(ownProps.unitKey, selected));
+        },
+
+        getRowId: (row) => {
+            return row.id;
         }
     }
 };
 
 const mapStateToProps = (state, ownProps) => {
-    let selection = state.selection;
+    let selection = state.gridSelection;
     let unitKey = ownProps.unitKey;
-    let selectedIds = (selection != null && selection.get(unitKey) != null && selection.get(unitKey).get('indexes') != null)
-        ? selection.get(unitKey).get('indexes')
-        : [];
+    let selectedIds = (selection != null && selection[unitKey]!=null) ? selection[unitKey] : [];
 
-    // Bit of a duplication but selected ids can't give us row data and grid selection event doesn't clear data when we leave
-    let selectionProp = selectedIds.length > 0 && state.gridSelection !== null ? state.gridSelection[unitKey] : null;
-    console.log(selection)
+    console.log(selectedIds)
 
     return {
         gridDefinition: state.screen[ownProps.unitIndex].grid,
         unitKey: ownProps.unitKey,
         data: ownProps.colDefAndData.data,
         columndef: ownProps.colDefAndData.columndef,
-        selection: selectionProp
+        selection: selectedIds
     };
 };
 

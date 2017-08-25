@@ -116,7 +116,7 @@ const renderField = ({input, label, type, placeholder, meta: {touched, error}, c
                     margin="normal"
                     className={classes.textField}
                     label={label}
-                    error={touched && error?true:false}
+                    error={touched && error ? true : false}
                     helperText={helperText}
                     type={type}
                     required={required}
@@ -209,12 +209,17 @@ class FormComponent extends React.Component {
 
 
     componentWillReceiveProps({pausedPath, navigate, snack, data: {saved, message}}) {
-        if (saved === true) {
+        if (saved === true && (!exists(this.state) || this.state.finalised !== true)) {
+            this.setState({finalised: true});
             if (exists(message) && message.length > 0) {
                 snack(message);
             }
             navigate(pausedPath);
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return !exists(nextState) || nextState.finalised!==true
     }
 
     render() {
@@ -226,7 +231,7 @@ class FormComponent extends React.Component {
 
 const Formed = reduxForm({
     validate: validate,
-    enableReinitialize:true,
+    enableReinitialize: true,
     keepDirtyOnReinitialize: true
 })(FormComponent);
 
